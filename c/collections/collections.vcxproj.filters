@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\src">
+      <UniqueIdentifier>{05df338b-3c56-44d4-8e2b-5a121fd23d5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\linkedlist">
+      <UniqueIdentifier>{a43baeae-691d-44df-a2c6-c77604e51bbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\stack">
+      <UniqueIdentifier>{504850a7-aec7-4e13-b541-d2092d6af699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\queue">
+      <UniqueIdentifier>{0bab4170-aea3-4d23-8199-979a830a67d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\set">
+      <UniqueIdentifier>{215bab14-6aa5-4ddb-ae23-1f69e8a0be0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\dictionary">
+      <UniqueIdentifier>{5313a971-e28d-4c95-b47c-e8528345478f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.c">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="linkedlist\linkedlist.c">
+      <Filter>Source Files\linkedlist</Filter>
+    </ClCompile>
+    <ClCompile Include="stack\stack.c">
+      <Filter>Source Files\stack</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="linkedlist\linkedlist.h">
+      <Filter>Source Files\linkedlist</Filter>
+    </ClInclude>
+    <ClInclude Include="stack\stack.h">
+      <Filter>Source Files\stack</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,85 @@
+#include "stack.h"
+#include <stdio.h>
+
+typedef struct node Node;
+
+struct node
+{
+	void *data;
+	struct node *next;
+};
+
+struct stack
+{
+	Node *top;
+};
+
+static Node *stack__new_node(void *data, size_t dataSize);
+static stack__free_node(Node **node);
+
+Stack *Stack_New()
+{
+	Stack *This = calloc(1, sizeof(struct stack));
+	return This;
+}
+
+int Stack_IsEmpty(Stack *This)
+{
+	return This->top == NULL;
+}
+
+void Stack_Push(Stack *This, void *data, size_t dataSize)
+{
+	Node *new = stack__new_node(data, dataSize);
+	new->next = This->top;
+	This->top = new;
+}
+
+void Stack_PushInt(Stack * This, int data)
+{
+	Stack_Push(This, &data, sizeof(int));
+}
+
+void Stack_Pop(Stack *This)
+{
+	Node *next = This->top->next;
+	stack__free_node(&This->top);
+	This->top = next;
+}
+
+int Stack_PopInt(Stack * This)
+{
+	int *data = Stack_Peek(This);
+	Stack_Pop(This);
+	return *data;
+}
+
+void *Stack_Peek(Stack *This)
+{
+	return This->top->data;
+}
+
+void Stack_PrintInt(Stack * This)
+{
+	Node *curr = This->top;
+	while (NULL != curr)
+	{
+		printf("Node data (int): %d\n", *(int *)curr->data);
+		curr = curr->next;
+	}
+}
+
+static Node *stack__new_node(void *data, size_t dataSize)
+{
+	Node *This = calloc(1, sizeof(struct node));
+	This->data = calloc(1, dataSize);
+	memcpy(This->data, data, dataSize);
+	return This;
+}
+
+static stack__free_node(Node **node)
+{
+	void *data = (*(node))->data;
+	free(data);
+	free(*node);
+}
