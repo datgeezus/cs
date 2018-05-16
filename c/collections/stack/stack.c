@@ -49,9 +49,9 @@ void Stack_Pop(Stack *This)
 
 int Stack_PopInt(Stack * This)
 {
-	int *data = Stack_Peek(This);
+	int data = *(int *)Stack_Peek(This);
 	Stack_Pop(This);
-	return *data;
+	return data;
 }
 
 void *Stack_Peek(Stack *This)
@@ -69,6 +69,24 @@ void Stack_PrintInt(Stack * This)
 	}
 }
 
+void Stack_PushChar(Stack *This, char data)
+{
+    Stack_Push(This, &data, sizeof(char));
+}
+
+char Stack_PopChar(Stack *This)
+{
+    char data = *(char *)Stack_Peek(This);
+	Stack_Pop(This);
+	return data;
+}
+
+void Stack_PrintChar(Stack *This)
+{
+
+}
+
+/****************************************************************************/
 static Node *stack__new_node(void *data, size_t dataSize)
 {
 	Node *This = calloc(1, sizeof(struct node));

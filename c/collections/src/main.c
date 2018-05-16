@@ -1,14 +1,17 @@
 #include "linkedlist/linkedlist.h"
 #include "stack/stack.h"
+#include "set/set.h"
 #include <stdio.h>
 
 static void test__linkedlist();
 static void test__stack();
+static void test__set();
 
 int main()
 {
 	test__linkedlist();
 	test__stack();
+    test__set();
 
 	getchar();
 }
@@ -28,7 +31,7 @@ static void test__linkedlist()
 
 static void test__stack()
 {
-	printf("LinkedList text ...\n");
+	printf("Stack text ...\n");
 
 	Stack *stack = Stack_New();
 	Stack_PushInt(stack, 1);
@@ -42,4 +45,17 @@ static void test__stack()
 	Stack_PushInt(stack, 7);
 
 	Stack_PrintInt(stack);
+	printf("**************\n");
+}
+
+static void test__set()
+{
+	printf("Set text ...\n");
+    Set *set = Set_New();
+    Set_Insert(set, "Hello");
+    Set_Insert(set, "Hi");
+    Set_Insert(set, "Hallo");
+    Set_Insert(set, "Hola");
+    Set_PrintChar(set);
+	printf("**************\n");
 }

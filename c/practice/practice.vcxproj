@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{2F010C35-ED72-4C47-8EBF-82463C4CAA10}</ProjectGuid>
-    <RootNamespace>collections</RootNamespace>
+    <ProjectGuid>{78CB8A51-CC3A-4FBC-8B92-A4D180A55B17}</ProjectGuid>
+    <RootNamespace>practice</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)..\collections;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -78,7 +78,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -118,17 +117,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="linkedlist\linkedlist.c" />
-    <ClCompile Include="queue\queue.c" />
-    <ClCompile Include="set\set .c" />
+    <ClCompile Include="..\collections\stack\stack.c" />
+    <ClCompile Include="src\bracket_validator.c" />
     <ClCompile Include="src\main.c" />
-    <ClCompile Include="stack\stack.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="linkedlist\linkedlist.h" />
-    <ClInclude Include="queue\queue.h" />
-    <ClInclude Include="set\set.h" />
-    <ClInclude Include="stack\stack.h" />
+    <ClInclude Include="..\collections\stack\stack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

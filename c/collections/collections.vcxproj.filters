@@ -42,6 +42,12 @@
     <ClCompile Include="stack\stack.c">
       <Filter>Source Files\stack</Filter>
     </ClCompile>
+    <ClCompile Include="queue\queue.c">
+      <Filter>Source Files\queue</Filter>
+    </ClCompile>
+    <ClCompile Include="set\set .c">
+      <Filter>Source Files\set</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="linkedlist\linkedlist.h">
@@ -49,6 +55,12 @@
     </ClInclude>
     <ClInclude Include="stack\stack.h">
       <Filter>Source Files\stack</Filter>
+    </ClInclude>
+    <ClInclude Include="queue\queue.h">
+      <Filter>Source Files\queue</Filter>
+    </ClInclude>
+    <ClInclude Include="set\set.h">
+      <Filter>Source Files\set</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
