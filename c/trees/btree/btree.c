@@ -59,12 +59,12 @@ int BTree_GetDataInt(BTreeNode *node)
     return data;
 }
 
-void BTree_PrintInt(BTreeNode *root)
+void BTree_PrintPreorderInt(BTreeNode *root)
 {
-    int ret = BTree_DFS(root, btree__foreach_printint, NULL);
+    int ret = BTree_DFS_Preorder(root, btree__foreach_printint, NULL);
 }
 
-int BTree_DFS(BTreeNode *root, BTreeForEach cb, const void *userData)
+int BTree_DFS_Preorder(BTreeNode *root, BTreeForEach cb, const void *userData)
 {
     int completed = 1;
     Stack *visit = Stack_New();
