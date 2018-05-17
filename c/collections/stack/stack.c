@@ -1,5 +1,6 @@
 #include "stack.h"
 #include <stdio.h>
+#include <string.h>
 
 typedef struct node Node;
 
@@ -35,6 +36,14 @@ void Stack_Push(Stack *This, void *data, size_t dataSize)
 	This->top = new;
 }
 
+void Stack_PushPtr(Stack *This, const void *data)
+{
+    Node *new = calloc(1, sizeof(Node));
+    new->data = data;
+    new->next = This->top;
+    This->top = new;
+}
+
 void Stack_PushInt(Stack * This, int data)
 {
 	Stack_Push(This, &data, sizeof(int));
@@ -45,6 +54,15 @@ void Stack_Pop(Stack *This)
 	Node *next = This->top->next;
 	stack__free_node(&This->top);
 	This->top = next;
+}
+
+void *Stack_PopPtr(Stack *This)
+{
+    void *data = Stack_Peek(This);
+	Node *next = This->top->next;
+    free(This->top);
+	This->top = next;
+    return data;
 }
 
 int Stack_PopInt(Stack * This)

@@ -18,10 +18,25 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\collections\linkedlist\linkedlist.c" />
+    <ClCompile Include="..\collections\queue\queue.c" />
+    <ClCompile Include="..\collections\set\set .c" />
+    <ClCompile Include="..\collections\stack\stack.c" />
+    <ClCompile Include="btree\btree.c" />
+    <ClCompile Include="src\main.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\collections\linkedlist\linkedlist.h" />
+    <ClInclude Include="..\collections\queue\queue.h" />
+    <ClInclude Include="..\collections\set\set.h" />
+    <ClInclude Include="..\collections\stack\stack.h" />
+    <ClInclude Include="btree\btree.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{78CB8A51-CC3A-4FBC-8B92-A4D180A55B17}</ProjectGuid>
-    <RootNamespace>practice</RootNamespace>
+    <ProjectGuid>{22AFE92F-A981-49C1-8EE6-F8E54BFE4FD3}</ProjectGuid>
+    <RootNamespace>trees</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -70,7 +85,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir);$(ProjectDir)..\collections;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)../collections;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -117,20 +132,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\collections\linkedlist\linkedlist.c" />
-    <ClCompile Include="..\collections\queue\queue.c" />
-    <ClCompile Include="..\collections\set\set .c" />
-    <ClCompile Include="..\collections\stack\stack.c" />
-    <ClCompile Include="src\bracket_validator.c" />
-    <ClCompile Include="src\main.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\collections\linkedlist\linkedlist.h" />
-    <ClInclude Include="..\collections\queue\queue.h" />
-    <ClInclude Include="..\collections\set\set.h" />
-    <ClInclude Include="..\collections\stack\stack.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

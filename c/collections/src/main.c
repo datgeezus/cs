@@ -27,6 +27,7 @@ static void test__linkedlist()
 	LinkedList_AppendInt(list, 9);
 
 	LinkedList_PrintInt(list);
+	printf("**************\n");
 }
 
 static void test__stack()

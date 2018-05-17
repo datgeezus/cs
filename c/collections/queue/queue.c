@@ -20,6 +20,7 @@ Queue *Queue_New()
 
 void *Queue_Peek(Queue *This)
 {
+    return Stack_Peek(This->out);
 }
 
 void Queue_Enqueue(Queue *This, void *data, size_t dataSize)

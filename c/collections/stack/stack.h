@@ -10,6 +10,9 @@ void Stack_Push(Stack *This, void *data, size_t dataSize);
 void Stack_Pop(Stack *This);
 void *Stack_Peek(Stack *This);
 
+void Stack_PushPtr(Stack *This, const void *data);
+void *Stack_PopPtr(Stack *This);
+
 void Stack_PushInt(Stack *This, int data);
 int Stack_PopInt(Stack *This);
 void Stack_PrintInt(Stack *This);

@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "collections", "collections.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "practice", "..\practice\practice.vcxproj", "{78CB8A51-CC3A-4FBC-8B92-A4D180A55B17}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "trees", "..\trees\trees.vcxproj", "{22AFE92F-A981-49C1-8EE6-F8E54BFE4FD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{78CB8A51-CC3A-4FBC-8B92-A4D180A55B17}.Release|x64.Build.0 = Release|x64
 		{78CB8A51-CC3A-4FBC-8B92-A4D180A55B17}.Release|x86.ActiveCfg = Release|Win32
 		{78CB8A51-CC3A-4FBC-8B92-A4D180A55B17}.Release|x86.Build.0 = Release|Win32
+		{22AFE92F-A981-49C1-8EE6-F8E54BFE4FD3}.Debug|x64.ActiveCfg = Debug|x64
+		{22AFE92F-A981-49C1-8EE6-F8E54BFE4FD3}.Debug|x64.Build.0 = Debug|x64
+		{22AFE92F-A981-49C1-8EE6-F8E54BFE4FD3}.Debug|x86.ActiveCfg = Debug|Win32
+		{22AFE92F-A981-49C1-8EE6-F8E54BFE4FD3}.Debug|x86.Build.0 = Debug|Win32
+		{22AFE92F-A981-49C1-8EE6-F8E54BFE4FD3}.Release|x64.ActiveCfg = Release|x64
+		{22AFE92F-A981-49C1-8EE6-F8E54BFE4FD3}.Release|x64.Build.0 = Release|x64
+		{22AFE92F-A981-49C1-8EE6-F8E54BFE4FD3}.Release|x86.ActiveCfg = Release|Win32
+		{22AFE92F-A981-49C1-8EE6-F8E54BFE4FD3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,32 +13,35 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\src">
-      <UniqueIdentifier>{59215502-41e0-4241-80ac-211f20040e60}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\collections">
-      <UniqueIdentifier>{125f847c-dc76-4278-8c73-e5138a5a0cc9}</UniqueIdentifier>
+      <UniqueIdentifier>{dbaee594-fd87-4a10-9c4b-f57e5353e949}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\collections\stack">
-      <UniqueIdentifier>{cabf1ecc-0c44-49b3-aea5-9595dea03399}</UniqueIdentifier>
+      <UniqueIdentifier>{a6358dd9-b9f3-404a-a64f-323da1fc262e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\collections\linkedlist">
-      <UniqueIdentifier>{20b357d0-af47-4cf7-9753-37a925c7c09a}</UniqueIdentifier>
+      <UniqueIdentifier>{89bc1f8c-bb01-4248-a7b5-dae2672ce7f7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\collections\queue">
-      <UniqueIdentifier>{46a14dcb-16b8-4044-bb3a-5b3b9656e653}</UniqueIdentifier>
+      <UniqueIdentifier>{b62ee74c-78c0-49b5-a335-a8f451266f22}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\collections\set">
-      <UniqueIdentifier>{3956dd11-5d3c-43ec-8865-c62fcd57948b}</UniqueIdentifier>
+      <UniqueIdentifier>{b59caabb-6341-443d-bdf2-17545aad66ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\btree">
+      <UniqueIdentifier>{bc6d4fcb-2c13-4e21-8ad5-328ac0626cbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src">
+      <UniqueIdentifier>{de3a61d3-9f5c-491c-a4cd-4766a9a86173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\dfs">
+      <UniqueIdentifier>{84b3fe8f-584f-46aa-b177-285540946001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\bfs">
+      <UniqueIdentifier>{18c9b4be-ae3a-4f25-93c9-3a51f18d9d0b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.c">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\bracket_validator.c">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\collections\stack\stack.c">
       <Filter>Source Files\collections\stack</Filter>
     </ClCompile>
@@ -50,6 +53,12 @@
     </ClCompile>
     <ClCompile Include="..\collections\set\set .c">
       <Filter>Source Files\collections\set</Filter>
+    </ClCompile>
+    <ClCompile Include="btree\btree.c">
+      <Filter>Source Files\btree</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.c">
+      <Filter>Source Files\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="..\collections\set\set.h">
       <Filter>Source Files\collections\set</Filter>
+    </ClInclude>
+    <ClInclude Include="btree\btree.h">
+      <Filter>Source Files\btree</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
