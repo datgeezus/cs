@@ -31,12 +31,21 @@
     <Filter Include="Source Files\collections\set">
       <UniqueIdentifier>{3956dd11-5d3c-43ec-8865-c62fcd57948b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\collections\hashtable">
+      <UniqueIdentifier>{0355ec05-004a-47ea-8b04-97da95314210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\trees">
+      <UniqueIdentifier>{134a4f94-d8ba-45bb-b852-312e9079b984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\trees\btree">
+      <UniqueIdentifier>{2f1fa52c-02c7-45a8-8911-adc273aa6eb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\trees\graph">
+      <UniqueIdentifier>{361e656a-ab40-497e-ba0a-921df535306e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\bracket_validator.c">
       <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="..\collections\stack\stack.c">
@@ -51,6 +60,21 @@
     <ClCompile Include="..\collections\set\set .c">
       <Filter>Source Files\collections\set</Filter>
     </ClCompile>
+    <ClCompile Include="..\collections\hashtable\hashtable.c">
+      <Filter>Source Files\collections\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\trees\btree\btree.c">
+      <Filter>Source Files\trees\btree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\trees\graph\graph.c">
+      <Filter>Source Files\trees\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="src\p46_mesh_message.c">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\p29_bracket_validator.c">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\collections\stack\stack.h">
@@ -64,6 +88,15 @@
     </ClInclude>
     <ClInclude Include="..\collections\set\set.h">
       <Filter>Source Files\collections\set</Filter>
+    </ClInclude>
+    <ClInclude Include="..\collections\hashtable\hashtable.h">
+      <Filter>Source Files\collections\hashtable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\trees\btree\btree.h">
+      <Filter>Source Files\trees\btree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\trees\graph\graph.h">
+      <Filter>Source Files\trees\graph</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

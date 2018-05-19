@@ -23,9 +23,19 @@ struct bfsdata
 {
     Graph *graph;
     Queue *visit;
-    HashSet *visited;
+    HashTable *visited;
+    GraphNode *node;
 };
 
+struct bfspathdata
+{
+    GraphNode *start;
+    GraphNode *end;
+};
+
+static int graph__bfs(Graph *This, GraphNode *start, GraphNodeForEach cb, void *udata, HashTable **path);
+static const char **graph__reconstruct_path(HashTable *path, GraphNode *start, GraphNode *end);
+static int graph__foreach_path(GraphNode *node, void *udata);
 static int graph__foreach_print(GraphNode *node, void *udata);
 static void graph__foreach_pprint(const char *label, void *udata);
 static void graph__bfs_hashset_foreach(const char *key, void *udata);
@@ -64,6 +74,11 @@ char *GraphNode_GetLabel(GraphNode *node)
     return node->label;
 }
 
+void *GraphNode_GetData(GraphNode *node)
+{
+    return node->data;
+}
+
 void GraphNode_AddNeighbor(GraphNode *node, GraphNode *neighbor)
 {
     if (NULL != node && NULL != neighbor)
@@ -83,16 +98,38 @@ void Graph_PrintAdjList(Graph *This)
     HashSet_ForEach(This->keys, graph__foreach_pprint, This);
 }
 
-int Graph_BFS(Graph *This, const char *startLbl, GraphNodeForEach cb, void *udata)
+int Graph_BFS(Graph *This, GraphNode *start, GraphNodeForEach cb, void *udata)
+{
+    HashTable *dummy;
+    return graph__bfs(This, start, cb, udata, &dummy);
+}
+
+char **Graph_FindPath(Graph *This, GraphNode *start, GraphNode *end)
+{
+    char **_path = NULL;
+    HashTable *path;
+    struct bfspathdata data = { start, end };
+
+    int completed = graph__bfs(This, start, graph__foreach_path, &data, &path);
+    if (!completed)
+    {
+        /* found path, reconstruct it */
+        _path = graph__reconstruct_path(path, start, end);
+    }
+
+    return _path;
+}
+
+static int graph__bfs(Graph *This, GraphNode *start, GraphNodeForEach cb, void *udata, HashTable **path)
 {
     int completed = 1;
     Queue *visit = Queue_New();
-    HashSet *visited = HashSet_New();
-    GraphNode *start = HashTable_Find(This->table, startLbl);
-    struct bfsdata data = { This, visit, visited };
+    HashTable *visited = HashTable_New();
+    (*path) = visited;
+    struct bfsdata data = { This, visit, (*path) };
 
     Queue_EnqueuePtr(visit, (void *)start);
-    HashSet_Insert(visited, start->label);
+    HashTable_InsertPtr(visited, start->label, NULL);
 
     while (!Queue_IsEmpty(visit))
     {
@@ -105,6 +142,7 @@ int Graph_BFS(Graph *This, const char *startLbl, GraphNodeForEach cb, void *udat
             break;
         }
 
+        data.node = node;
         HashSet_ForEach(node->neighbors, graph__bfs_hashset_foreach, (void *)&data);
     }
 
@@ -115,10 +153,10 @@ static void graph__bfs_hashset_foreach(const char *key, void *udata)
 {
     struct bfsdata *data = (struct bfsdata *)udata;
     GraphNode *neighbor = HashTable_Find(data->graph->table, key);
-    if(!HashSet_In(data->visited, key))
+    if(!HashTable_Find(data->visited, key))
     {
-        HashSet_Insert(data->visited, key);
         Queue_EnqueuePtr(data->visit, neighbor);
+        HashTable_InsertPtr(data->visited, neighbor->label, data->node);
     }
 }
 
@@ -135,4 +173,40 @@ static void graph__foreach_pprint(const char *label, void *udata)
     printf("{%s: ", label);
     HashSet_Print(n->neighbors);
     printf("}\n");
+}
+
+static int graph__foreach_path(GraphNode *node, void *udata)
+{
+    int exit = 0;
+    struct bfspathdata *data = (struct bfsdata *)udata;
+    if (0 == strcmp(node->label, data->end->label))
+    {
+        exit = 1;
+    }
+
+    return exit;
+}
+
+static const char **graph__reconstruct_path(HashTable *path, GraphNode *start, GraphNode *end)
+{
+    char **shortestPath = NULL;
+    size_t i = 0;
+    size_t n = 0;   /* size of output array */
+    GraphNode *node = NULL;
+    for (n = 0, node = end; NULL != node; ++n)
+    {
+        node = HashTable_Find(path, node->label);
+    }
+
+    shortestPath = calloc(n, sizeof(const char *));
+
+    i = n - 1;
+    node = end;
+    for (i = n - 1, node = end; NULL != node; --i)
+    {
+        shortestPath[i] = node->label;
+        node = HashTable_Find(path, node->label);
+    }
+
+    return shortestPath;
 }
