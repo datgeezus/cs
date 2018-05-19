@@ -32,7 +32,7 @@ static void test__linkedlist()
 
 static void test__stack()
 {
-	printf("Stack text ...\n");
+	printf("Stack test ...\n");
 
 	Stack *stack = Stack_New();
 	Stack_PushInt(stack, 1);
@@ -51,12 +51,12 @@ static void test__stack()
 
 static void test__set()
 {
-	printf("Set text ...\n");
-    Set *set = Set_New();
-    Set_Insert(set, "Hello");
-    Set_Insert(set, "Hi");
-    Set_Insert(set, "Hallo");
-    Set_Insert(set, "Hola");
-    Set_PrintChar(set);
+	printf("Set test ...\n");
+    HashSet *set = HashSet_New();
+    HashSet_Insert(set, "Hello");
+    HashSet_Insert(set, "Hi");
+    HashSet_Insert(set, "Hallo");
+    HashSet_Insert(set, "Hola");
+    HashSet_Print(set);
 	printf("**************\n");
 }

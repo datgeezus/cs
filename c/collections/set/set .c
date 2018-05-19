@@ -7,30 +7,31 @@
 #define TABLE_SEED  4815
 #define TOLOWER     (char)0x20 
 
-typedef struct node Node;
+typedef struct hashsetnode HSNode;
 
-struct node
+struct hashsetnode
 {
     char *key;
-    Node *next;
+    HSNode *next;
 };
 
-struct set
+struct hashset
 {
-    int size;
-    Node *table[TABLE_SIZE];
+    size_t size;
+    size_t n;
+    HSNode *table[TABLE_SIZE];
     uint32_t hashes[TABLE_SIZE];
 };
 
-static Node *set__node_new(const char *key);
-static Node *set__node_find(Node *root, const char *key);
-static void set__foreach_print(const char *key);
+static HSNode *hashset__node_new(const char *key);
+static HSNode *hashset__node_find(HSNode *root, const char *key);
+static void hashset__foreach_print(const char *key, void *udata);
 static uint32_t hash_function(const char *key);
 
 
-Set *Set_New()
+HashSet *HashSet_New()
 {
-    Set *This = calloc(1, sizeof(struct set));
+    HashSet *This = calloc(1, sizeof(HashSet));
     This->size = 0;
     memset(This->table, NULL, TABLE_SIZE);
     memset(This->hashes, 0U, TABLE_SIZE);
@@ -38,26 +39,31 @@ Set *Set_New()
     return This;
 }
 
-size_t Set_GetSize(Set *This)
+size_t HashSet_GetSize(HashSet *This)
 {
     return This->size;
 }
 
-void Set_Insert(Set *This, const char *key)
+void HashSet_Insert(HashSet *This, const char *key)
 {
     uint32_t hash = hash_function(key);
-    Node *n = set__node_new(key);
     if (NULL == This->table[hash])
     {
+        /* hash not found, create new node */
+        HSNode *n = hashset__node_new(key);
         This->table[hash] = n;
         This->hashes[This->size] = hash;
+        This->n += 1;
         This->size += 1;
     }
     else
     {
-        Node *found = set__node_find(This->table[hash], key);
-        if (NULL == found)
+        /* hash found, search for existing node by key */
+        HSNode *n = hashset__node_find(This->table[hash], key);
+        if (NULL == n)
         {
+            /* node not found, create a new one */
+            n = hashset__node_new(key);
             n->next = This->table[hash];
             This->table[hash] = n;
             This->hashes[This->size] = hash;
@@ -66,39 +72,33 @@ void Set_Insert(Set *This, const char *key)
     }
 }
 
-int Set_In(Set *This, const char *key)
+int HashSet_In(HashSet *This, const char *key)
 {
     uint32_t hash = hash_function(key);
-    Node *f = set__node_find(This->table[hash], key);
+    HSNode *f = hashset__node_find(This->table[hash], key);
     return NULL != f;
 }
 
-void Set_ForEachStr(Set *This, ForEachStr cb)
+void HashSet_ForEach(HashSet *This, HashSetForEach cb, void *udata)
 {
     if (NULL != This && NULL != cb)
     {
         int i = 0;
-        for (i = 0; i < This->size; ++i)
+        for (; i < This->n; ++i)
         {
-            Node *curr = This->table[This->hashes[i]];
-            while (NULL != curr)
+            HSNode *n = NULL;
+            for(n = This->table[This->hashes[i]]; NULL != n; n = n->next)
             {
-                cb(curr->key);
-                curr = curr->next;
+                cb(n->key, udata);
             }
         }
     }
 }
 
-void Set_PrintChar(Set *This)
+void HashSet_Print(HashSet *This)
 {
-    Set_ForEachStr(This, set__foreach_print);
-    printf("\n");
+    HashSet_ForEach(This, hashset__foreach_print, NULL);
 }
-
-void Set_InsertChar(Set *This, char data);
-int Set_CharIn(Set *This, char data);
-void Set_EraseChar(Set *This, char data);
 
 /****************************************************************************/
 static uint32_t hash_function(const char *key)
@@ -114,21 +114,21 @@ static uint32_t hash_function(const char *key)
     return((unsigned int)((h & 0x7fffffff) % TABLE_SIZE));
 }
 
-static Node *set__node_new(const char *key)
+static HSNode *hashset__node_new(const char *key)
 {
-    Node *node = calloc(1, sizeof(Node));
+    HSNode *node = calloc(1, sizeof(HSNode));
     node->key = calloc(strlen(key), sizeof(char));
     strcpy(node->key, key);
     return node;
 }
 
-static Node *set__node_find(Node *root, const char *key)
+static HSNode *hashset__node_find(HSNode *root, const char *key)
 {
-    Node *n = NULL;
+    HSNode *n = NULL;
 
     if (NULL != root)
     {
-        Node *curr = NULL;
+        HSNode *curr = NULL;
         for (curr = root; NULL != curr; curr = curr->next)
         {
             if (0 == strcmp(curr->key, key))
@@ -142,7 +142,7 @@ static Node *set__node_find(Node *root, const char *key)
     return n;
 }
 
-static void set__foreach_print(const char *key)
+static void hashset__foreach_print(const char *key)
 {
     printf("[%s] ", key);
 }

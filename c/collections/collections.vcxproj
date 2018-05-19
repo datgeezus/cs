@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="hashtable\hashtable.c" />
     <ClCompile Include="linkedlist\linkedlist.c" />
     <ClCompile Include="queue\queue.c" />
     <ClCompile Include="set\set .c" />
@@ -126,6 +127,7 @@
     <ClCompile Include="stack\stack.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="hashtable\hashtable.h" />
     <ClInclude Include="linkedlist\linkedlist.h" />
     <ClInclude Include="queue\queue.h" />
     <ClInclude Include="set\set.h" />

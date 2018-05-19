@@ -34,11 +34,11 @@
     <Filter Include="Source Files\src">
       <UniqueIdentifier>{de3a61d3-9f5c-491c-a4cd-4766a9a86173}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\dfs">
+    <Filter Include="Source Files\graph">
       <UniqueIdentifier>{84b3fe8f-584f-46aa-b177-285540946001}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\bfs">
-      <UniqueIdentifier>{18c9b4be-ae3a-4f25-93c9-3a51f18d9d0b}</UniqueIdentifier>
+    <Filter Include="Source Files\collections\hashtable">
+      <UniqueIdentifier>{b2ad7356-3a3f-475c-b6e3-3cb22fa07005}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +60,12 @@
     <ClCompile Include="src\main.c">
       <Filter>Source Files\src</Filter>
     </ClCompile>
+    <ClCompile Include="graph\graph.c">
+      <Filter>Source Files\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\collections\hashtable\hashtable.c">
+      <Filter>Source Files\collections\hashtable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\collections\stack\stack.h">
@@ -76,6 +82,12 @@
     </ClInclude>
     <ClInclude Include="btree\btree.h">
       <Filter>Source Files\btree</Filter>
+    </ClInclude>
+    <ClInclude Include="graph\graph.h">
+      <Filter>Source Files\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\collections\hashtable\hashtable.h">
+      <Filter>Source Files\collections\hashtable</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

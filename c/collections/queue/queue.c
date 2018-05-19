@@ -28,8 +28,32 @@ void Queue_Enqueue(Queue *This, void *data, size_t dataSize)
     Stack_Push(This->in, data, dataSize);
 }
 
+int Queue_IsEmpty(Queue *This)
+{
+    return Stack_IsEmpty(This->out) && Stack_IsEmpty(This->in);
+}
+
 void Queue_Deque(Queue *This)
 {
+}
+
+void Queue_EnqueuePtr(Queue *This, void *data)
+{
+    Stack_PushPtr(This->in, data);
+}
+
+void *Queue_DequePtr(Queue *This)
+{
+    if (Stack_IsEmpty(This->out))
+    {
+        while (!Stack_IsEmpty(This->in))
+        {
+            void *newest = Stack_PopPtr(This->in);
+            Stack_PushPtr(This->out, newest);
+        }
+    }
+
+    return Stack_PopPtr(This->out);
 }
 
 
@@ -40,8 +64,6 @@ void Queue_EnqueueInt(Queue *This, int data)
 
 int Queue_DequeInt(Queue *This)
 {
-    int max = 0;
-
     if (Stack_IsEmpty(This->out))
     {
         while (!Stack_IsEmpty(This->in))
@@ -52,8 +74,4 @@ int Queue_DequeInt(Queue *This)
     }
 
     return Stack_PopInt(This->out);
-}
-
-void Queue_PrintInt(Queue *This, int data)
-{
 }

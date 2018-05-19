@@ -28,7 +28,7 @@
     <Filter Include="Source Files\set">
       <UniqueIdentifier>{215bab14-6aa5-4ddb-ae23-1f69e8a0be0c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\dictionary">
+    <Filter Include="Source Files\hashtable">
       <UniqueIdentifier>{5313a971-e28d-4c95-b47c-e8528345478f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -48,6 +48,9 @@
     <ClCompile Include="set\set .c">
       <Filter>Source Files\set</Filter>
     </ClCompile>
+    <ClCompile Include="hashtable\hashtable.c">
+      <Filter>Source Files\hashtable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="linkedlist\linkedlist.h">
@@ -61,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="set\set.h">
       <Filter>Source Files\set</Filter>
+    </ClInclude>
+    <ClInclude Include="hashtable\hashtable.h">
+      <Filter>Source Files\hashtable</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
