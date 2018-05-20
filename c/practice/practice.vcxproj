@@ -125,6 +125,7 @@
     <ClCompile Include="..\collections\stack\stack.c" />
     <ClCompile Include="..\trees\btree\btree.c" />
     <ClCompile Include="..\trees\graph\graph.c" />
+    <ClCompile Include="src\p08_balanced_binary_tree.c" />
     <ClCompile Include="src\p29_bracket_validator.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\p46_mesh_message.c" />

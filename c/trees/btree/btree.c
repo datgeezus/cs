@@ -11,7 +11,7 @@ struct btreenode
     BTreeNode *right;
 };
 
-static int btree__foreach_printint(const void *data, const void *udata);
+static int btree__foreach_printint(BTreeNode *node, const void *udata);
 
 BTreeNode *BTree_NewNode(const void *data, size_t dataSize)
 {
@@ -73,7 +73,7 @@ int BTree_DFS_Preorder(BTreeNode *root, BTreeForEach cb, const void *udata)
     while (!Stack_IsEmpty(visit))
     {
         BTreeNode *node = (BTreeNode *)Stack_PopPtr(visit);
-        int exit = cb(node->data, udata);
+        int exit = cb(node, udata);
         if (1 == exit)
         {
             completed = 0;
@@ -95,8 +95,8 @@ int BTree_DFS_Preorder(BTreeNode *root, BTreeForEach cb, const void *udata)
     return completed;
 }
 
-static int btree__foreach_printint(const void *data, const void *udata)
+static int btree__foreach_printint(BTreeNode *node, const void *udata)
 {
-    printf("(%d) ", *(int *)data);
+    printf("(%d) ", *(int *)node->data);
     return 0;
 }

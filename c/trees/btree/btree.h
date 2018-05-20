@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 typedef struct btreenode BTreeNode;
-typedef int (*BTreeForEach)(const void *data, const void *udata);
+typedef int (*BTreeForEach)(BTreeNode *node, const void *udata);
 
 BTreeNode *BTree_NewNode(const void *data, size_t dataSize);
 BTreeNode *BTree_InsertLeft(BTreeNode *root, const void *data, size_t dataSize);

@@ -6,7 +6,7 @@
 
 static void btree__test();
 static void graph__test1();
-static int testgraph__find_conection(const char *label, void *data, void *udata);
+static int testgraph__find_conection(GraphNode *nodea, void *udata);
 
 int main()
 {
