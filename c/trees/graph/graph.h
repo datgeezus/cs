@@ -15,9 +15,10 @@ void GraphNode_AddNeighbor(GraphNode *node, GraphNode *neighbor);
 Graph *Graph_New();
 void Graph_InsertNode(Graph *This, GraphNode *node);
 
-void Graph_Print(Graph *This);
+int Graph_Print(GraphNode *node, void *udata);
 void Graph_PrintAdjList(Graph *This);
 int Graph_BFS(Graph *This, GraphNode *start, GraphNodeForEach cb, void *udata);
+int Graph_DFS(Graph *This, GraphNode *start, GraphNodeForEach cb, void *udata);
 char **Graph_FindPath(Graph *This, GraphNode *start, GraphNode *end);
 
 #endif // !_GRAPH_H

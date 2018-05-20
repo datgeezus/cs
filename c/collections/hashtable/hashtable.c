@@ -27,6 +27,7 @@ struct hashtable
 
 static Node *hashtable__node_new(const char *key, void *data, size_t size);
 static Node *hashtable__node_find(Node *root, const char *key);
+static Node *hashtable__find(HashTable *This, const char *key);
 static void hashtable__foreach_print(const char *key, void *data, void *udata);
 static uint32_t hash_function(const char *key);
 
@@ -65,21 +66,38 @@ void HashTable_Insert(HashTable *This, const char *key, void *data, size_t size)
     }
 }
 
+int HashTable_In(HashTable *This, const char *key)
+{
+    return NULL != hashtable__find(This, key);
+}
+
 void *HashTable_Find(HashTable *This, const char *key)
 {
     void *data = NULL;
+    Node *node = hashtable__find(This, key);
+
+    if (NULL != node)
+    {
+        data = node->data;
+    }
+
+    return data;
+}
+
+static Node *hashtable__find(HashTable *This, const char *key)
+{
+    Node *node = NULL;
 
     if (NULL != This)
     {
         uint32_t hash = hash_function(key);
         if (NULL != This->table[hash])
         {
-            Node *n = hashtable__node_find(This->table[hash], key);
-            data = n->data;
+            node = hashtable__node_find(This->table[hash], key);
         }
     }
 
-    return data;
+    return node;
 }
 
 void HashTable_ForEach(HashTable *This, HashTableForEach cb, void *uData)
@@ -125,6 +143,7 @@ static Node *hashtable__node_new(const char *key, void *data, size_t size)
     {
         node->data = data;
     }
+    return node;
 }
 
 static Node *hashtable__node_find(Node *root, const char *key)

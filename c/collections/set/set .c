@@ -33,7 +33,7 @@ HashSet *HashSet_New()
 {
     HashSet *This = calloc(1, sizeof(HashSet));
     This->size = 0;
-    memset(This->table, NULL, TABLE_SIZE);
+    memset(This->table, 0U, TABLE_SIZE);
     memset(This->hashes, 0U, TABLE_SIZE);
 
     return This;
@@ -142,7 +142,7 @@ static HSNode *hashset__node_find(HSNode *root, const char *key)
     return n;
 }
 
-static void hashset__foreach_print(const char *key)
+static void hashset__foreach_print(const char *key, void *udata)
 {
     printf("[%s] ", key);
 }

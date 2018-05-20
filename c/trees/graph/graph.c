@@ -1,6 +1,7 @@
 #include "graph.h"
 #include "hashtable/hashtable.h"
 #include "queue/queue.h"
+#include "stack/stack.h"
 #include "set/set.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -22,9 +23,17 @@ struct graph
 struct bfsdata
 {
     Graph *graph;
+    GraphNode *node;
     Queue *visit;
     HashTable *visited;
+};
+
+struct dfsdata
+{
+    Graph *graph;
     GraphNode *node;
+    Stack *visit;
+    HashTable *visited;
 };
 
 struct bfspathdata
@@ -34,11 +43,13 @@ struct bfspathdata
 };
 
 static int graph__bfs(Graph *This, GraphNode *start, GraphNodeForEach cb, void *udata, HashTable **path);
+static int graph__dfs(Graph *This, GraphNode *start, GraphNodeForEach cb, void *udata, HashTable **path);
 static const char **graph__reconstruct_path(HashTable *path, GraphNode *start, GraphNode *end);
 static int graph__foreach_path(GraphNode *node, void *udata);
 static int graph__foreach_print(GraphNode *node, void *udata);
 static void graph__foreach_pprint(const char *label, void *udata);
 static void graph__bfs_hashset_foreach(const char *key, void *udata);
+static void graph__dfs_hashset_foreach(const char *key, void *udata);
 
 Graph *Graph_New()
 {
@@ -88,9 +99,9 @@ void GraphNode_AddNeighbor(GraphNode *node, GraphNode *neighbor)
     }
 }
 
-void Graph_Print(Graph *This)
+int Graph_Print(GraphNode *node, void *udata)
 {
-    Graph_BFS(This, "a", graph__foreach_print, NULL, NULL);
+    return graph__foreach_print(node, udata);
 }
 
 void Graph_PrintAdjList(Graph *This)
@@ -102,6 +113,12 @@ int Graph_BFS(Graph *This, GraphNode *start, GraphNodeForEach cb, void *udata)
 {
     HashTable *dummy;
     return graph__bfs(This, start, cb, udata, &dummy);
+}
+
+int Graph_DFS(Graph *This, GraphNode *start, GraphNodeForEach cb, void *udata)
+{
+    HashTable *dummy;
+    return graph__dfs(This, start, cb, udata, &dummy);
 }
 
 char **Graph_FindPath(Graph *This, GraphNode *start, GraphNode *end)
@@ -126,7 +143,7 @@ static int graph__bfs(Graph *This, GraphNode *start, GraphNodeForEach cb, void *
     Queue *visit = Queue_New();
     HashTable *visited = HashTable_New();
     (*path) = visited;
-    struct bfsdata data = { This, visit, (*path) };
+    struct bfsdata data = { This, NULL, visit, (*path) };
 
     Queue_EnqueuePtr(visit, (void *)start);
     HashTable_InsertPtr(visited, start->label, NULL);
@@ -153,16 +170,54 @@ static void graph__bfs_hashset_foreach(const char *key, void *udata)
 {
     struct bfsdata *data = (struct bfsdata *)udata;
     GraphNode *neighbor = HashTable_Find(data->graph->table, key);
-    if(!HashTable_Find(data->visited, key))
+    if(!HashTable_In(data->visited, key))
     {
         Queue_EnqueuePtr(data->visit, neighbor);
         HashTable_InsertPtr(data->visited, neighbor->label, data->node);
     }
 }
 
+static int graph__dfs(Graph *This, GraphNode *start, GraphNodeForEach cb, void *udata, HashTable **path)
+{
+    int completed = 1;
+    Stack *visit = Stack_New();
+    HashTable *visited = HashTable_New();
+    (*path) = visited;
+    struct dfsdata data = { This, NULL, visit, (*path) };
+
+    Stack_PushPtr(visit, start);
+    HashTable_InsertPtr(visited, start->label, NULL);
+    while (!Stack_IsEmpty(visit))
+    {
+        GraphNode *node = (GraphNode *)Stack_PopPtr(visit);
+        int exit = cb(node, udata);
+        if (1 == exit)
+        {
+            completed = 0;
+            break;
+        }
+        else
+        {
+            data.node = node;
+            HashSet_ForEach(node->neighbors, graph__dfs_hashset_foreach, (void *)&data);
+        }
+    }
+}
+
+static void graph__dfs_hashset_foreach(const char *key, void *udata)
+{
+    struct dfsdata *data = (struct dfsdata *)udata;
+    GraphNode *neighbor = HashTable_Find(data->graph->table, key);
+    if(!HashTable_In(data->visited, key))
+    {
+        Stack_PushPtr(data->visit, neighbor);
+        HashTable_InsertPtr(data->visited, neighbor->label, data->node);
+    }
+}
+
 static int graph__foreach_print(GraphNode *node, void *udata)
 {
-    printf("(%s) ", GraphNode_GetLabel(node));
+    printf("(%s) ", node->label);
     return 0;
 }
 
