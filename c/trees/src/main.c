@@ -25,13 +25,19 @@ static void btree__test()
     BTreeNode *n2 = BTree_InsertLeft(n1, &val[2], sizeof(int));
     BTreeNode *n3 = BTree_InsertLeft(n2, &val[3], sizeof(int));
     BTreeNode *n4 = BTree_InsertRight(n1, &val[4], sizeof(int));
-    BTreeNode *n5 = BTree_InsertLeft(n4, &val[5], sizeof(int));
+    BTreeNode *n5 = BTree_InsertRight(btree, &val[5], sizeof(int));
     BTreeNode *n6 = BTree_InsertLeft(n5, &val[6], sizeof(int));
     BTreeNode *n7 = BTree_InsertLeft(n6, &val[7], sizeof(int));
     BTreeNode *n8 = BTree_InsertRight(n5, &val[8], sizeof(int));
     BTreeNode *n9 = BTree_InsertLeft(n8, &val[9], sizeof(int));
     BTreeNode *n10 = BTree_InsertRight(n8, &val[10], sizeof(int));
+    printf("Binary Tree test ...\n");
+    printf("Pre-Order print ...\n");
     BTree_PrintPreorderInt(btree);
+    printf("\n");
+    printf("In-Order print ...\n");
+    BTree_PrintInorderInt(btree);
+    printf("\n");
 }
 
 static void graph__test1()

@@ -12,6 +12,8 @@ BTreeNode *BTree_InsertRight(BTreeNode *root, const void *data, size_t dataSize)
 void *BTree_GetData(BTreeNode *node);
 int BTree_GetDataInt(BTreeNode *node);
 void BTree_PrintPreorderInt(BTreeNode *root);
+void BTree_PrintInorderInt(BTreeNode *root);
 int BTree_DFS_Preorder(BTreeNode *root, BTreeForEach cb, const void *udata);
+int BTree_DFS_Inorder(BTreeNode *root, BTreeForEach cb, const void *udata);
 
 #endif // !_BTREE_H_
