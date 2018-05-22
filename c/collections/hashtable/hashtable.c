@@ -46,9 +46,9 @@ void HashTable_Insert(HashTable *This, const char *key, void *data, size_t size)
         /* hash not found, create new node */
         Node *n = hashtable__node_new(key, data, size);
         This->table[hash] = n;
-        This->hashes[This->size] = hash;
-        This->n += 1;
         This->size += 1;
+        This->hashes[This->n] = hash;
+        This->n += 1;
     }
     else
     {
@@ -60,7 +60,6 @@ void HashTable_Insert(HashTable *This, const char *key, void *data, size_t size)
             n = hashtable__node_new(key, data, size);
             n->next = This->table[hash];
             This->table[hash] = n;
-            This->hashes[This->size] = hash;
             This->size += 1;
         }
     }
@@ -108,7 +107,7 @@ void HashTable_ForEach(HashTable *This, HashTableForEach cb, void *uData)
         for (; i < This->n; ++i)
         {
             Node *n = NULL;
-            for(This->table[This->hashes[i]]; NULL != n; n = n->next)
+            for(n = This->table[This->hashes[i]]; NULL != n; n = n->next)
             {
                 cb(n->key, n->data, uData);
             }
