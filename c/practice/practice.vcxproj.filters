@@ -78,6 +78,9 @@
     <ClCompile Include="src\p08_balanced_binary_tree.c">
       <Filter>Source Files\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\p16_cake_thief.c">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\collections\stack\stack.h">

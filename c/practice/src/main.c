@@ -9,6 +9,7 @@ enum pset
 extern void pset__bracket_validator(void);
 extern void pset__mesh_message(void);
 extern void pset_balanced_binary_tree();
+extern void pset_cake_thief();
 
 int main()
 {
@@ -18,6 +19,8 @@ int main()
     pset__mesh_message();
     printf("\npset_balanced_binary_tree ...\n");
     pset_balanced_binary_tree();
+    printf("\npset_caake_thief ...\n");
+    pset_cake_thief();
     getchar();
     return 0;
 }

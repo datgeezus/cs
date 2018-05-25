@@ -38,6 +38,9 @@ static void btree__test()
     printf("In-Order print ...\n");
     BTree_PrintInorderInt(btree);
     printf("\n");
+    printf("Post-Order print ...\n");
+    BTree_PrintPostorderInt(btree);
+    printf("\n");
 }
 
 static void graph__test1()

@@ -70,6 +70,12 @@ void BTree_PrintInorderInt(BTreeNode *root)
     int ret = BTree_DFS_Inorder(root, btree__foreach_printint, NULL);
 }
 
+void BTree_PrintPostorderInt(BTreeNode *root)
+{
+
+    int ret = BTree_DFS_Postorder(root, btree__foreach_printint, NULL);
+}
+
 int BTree_DFS_Preorder(BTreeNode *root, BTreeForEach cb, const void *udata)
 {
     int completed = 1;
@@ -134,6 +140,48 @@ int BTree_DFS_Inorder(BTreeNode *root, BTreeForEach cb, const void *udata)
                 {
                     Stack_PushPtr(visit, node);
                     node = node->left;
+                }
+            }
+        }
+
+    }
+
+    return completed;
+}
+
+int BTree_DFS_Postorder(BTreeNode *root, BTreeForEach cb, const void *udata)
+{
+    int completed = 1;
+    Stack *visit = Stack_New();
+
+    BTreeNode *node = root;
+    while (NULL != node)
+    {
+        Stack_PushPtr(visit, node);
+        node = node->right;
+    }
+
+    while (!Stack_IsEmpty(visit))
+    {
+        BTreeNode *node = (BTreeNode *)Stack_PopPtr(visit);
+        int exit = cb(node, udata);
+        if (1 == exit)
+        {
+            completed = 0;
+            break;
+        }
+
+        if (NULL != node->left)
+        {
+            node = node->left;
+            Stack_PushPtr(visit, node);
+            if (NULL != node->right)
+            {
+                node = node->right;
+                while (NULL != node)
+                {
+                    Stack_PushPtr(visit, node);
+                    node = node->right;
                 }
             }
         }

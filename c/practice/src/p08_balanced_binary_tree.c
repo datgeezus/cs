@@ -1,5 +1,7 @@
 #include "btree/btree.h"
 
+#include <stdio.h>
+
 static BTreeNode *node[10] = { NULL };
 static int data[] = { 0, 1, 2, 3, 4, 5, 6 ,7 ,8, 9 };
 
@@ -18,22 +20,34 @@ static int btree__foreach(BTreeNode *node, const void *udata);
 
 void pset_balanced_binary_tree()
 {
-    size_t i = 0;
-    BTreeNode *root, *left, *right;
-    const int values[] = { 5, 8, 6, 1, 2, 3, 5 };
+    int lval = -100000000;
+    int val[] = { 50, 30, 20, 10, 40, 80, 70, 60, 90, 85, 100 };
+    BTreeNode *root = BTree_NewNode(&val[0], sizeof(int));
+    BTreeNode *n1 = BTree_InsertLeft(root, &val[1], sizeof(int));
+    BTreeNode *n2 = BTree_InsertLeft(n1, &val[2], sizeof(int));
+    BTreeNode *n3 = BTree_InsertLeft(n2, &val[3], sizeof(int));
+    BTreeNode *n4 = BTree_InsertRight(n1, &val[4], sizeof(int));
+    BTreeNode *n5 = BTree_InsertRight(root, &val[5], sizeof(int));
+    BTreeNode *n6 = BTree_InsertLeft(n5, &val[6], sizeof(int));
+    BTreeNode *n7 = BTree_InsertLeft(n6, &val[7], sizeof(int));
+    BTreeNode *n8 = BTree_InsertRight(n5, &val[8], sizeof(int));
+    BTreeNode *n9 = BTree_InsertLeft(n8, &val[9], sizeof(int));
+    BTreeNode *n10 = BTree_InsertRight(n8, &val[10], sizeof(int));
 
-    root = BTree_NewNode(&values[0], sizeof(*values));
-    left = BTree_InsertLeft(root, &values[1], sizeof(*values));
-    right = BTree_InsertRight(root, &values[2], sizeof(*values));
-    BTree_InsertLeft(left, &values[3], sizeof(*values));
-    BTree_InsertRight(left, &values[4], sizeof(*values));
-    BTree_InsertLeft(right, &values[5], sizeof(*values));
-    BTree_InsertRight(right, &values[6], sizeof(*values));
-
-    BTree_PrintPreorderInt(root);
+    int completed = BTree_DFS_Inorder(root, btree__foreach, &lval);
+    if (1 == completed)
+    {
+        printf("Valid binary search tree\n");
+    }
+    else
+    {
+        printf("Not Valid binary search tree\n");
+    }
 }
 
 static int btree__foreach(BTreeNode *node, const void *udata)
 {
-
+    int v = *(int *)BTree_GetData(node);
+    int u = *(int *)udata;
+    return !(v > u);
 }
