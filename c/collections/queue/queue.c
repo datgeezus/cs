@@ -6,6 +6,7 @@ struct queue
 {
     Stack *in;
     Stack *out;
+    size_t size;
 };
 
 Queue *Queue_New()
@@ -16,6 +17,11 @@ Queue *Queue_New()
     This->out = Stack_New();
 
     return This;
+}
+
+size_t Queue_Size(Queue *This)
+{
+    return Stack_Size(This->in) + Stack_Size(This->out);
 }
 
 void *Queue_Peek(Queue *This)

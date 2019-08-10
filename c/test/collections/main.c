@@ -1,17 +1,21 @@
 #include "linkedlist/linkedlist.h"
 #include "stack/stack.h"
 #include "set/set.h"
+#include "heap/heap.h"
 #include <stdio.h>
 
 static void test__linkedlist();
 static void test__stack();
 static void test__set();
+static void test__heap();
+static int test__heap_comparator_min(void *a, void *b, void *udata);
 
 int main()
 {
 	test__linkedlist();
 	test__stack();
     test__set();
+	test__heap();
 
 	getchar();
 }
@@ -59,4 +63,23 @@ static void test__set()
     HashSet_Insert(set, "Hola");
     HashSet_Print(set);
 	printf("**************\n");
+}
+
+static void test__heap()
+{
+	int data[] = { 11, 4, 7, 3,  8, 9, 4, 9, 2, 30};
+	int i = 0;
+	printf("Heap test ...\n");
+	Heap *minHeap = Heap_New(test__heap_comparator_min);
+	for(; i < 10; ++i)
+	{
+		Heap_Add(minHeap, &data[i]);
+	}
+	int * min = (int *)Heap_Peek(minHeap);
+	printf("Min value is %d", *min);
+}
+
+static int test__heap_comparator_min(void *a, void *b, void *udata)
+{
+	return *(int *)a > *(int *)b;
 }

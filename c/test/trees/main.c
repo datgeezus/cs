@@ -3,15 +3,18 @@
 #include <string.h>
 #include "btree/btree.h"
 #include "graph/graph.h"
+#include "trie/trie.h"
 
 static void btree__test();
 static void graph__test1();
+static void trie__test();
 static int testgraph__find_conection(GraphNode *nodea, void *udata);
 
 int main()
 {
     btree__test();
     graph__test1();
+    trie__test();
     getchar();
     return 0;
 }
@@ -103,4 +106,18 @@ static int testgraph__find_conection(GraphNode *node, void *udata)
         return 1;
     }
     return 0;
+}
+
+static void trie__test()
+{
+    Trie *trie = Trie_New();
+    Trie_AddStr(trie, "world");
+    Trie_AddStr(trie, "mundo");
+    Trie_AddStr(trie, "hello");
+    Trie_AddStr(trie, "hell");
+    Trie_AddStr(trie, "help");
+    Trie_AddStr(trie, "hola");
+
+    printf("\nTrie:\n");
+    Trie_Print(trie);
 }

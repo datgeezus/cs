@@ -31,10 +31,10 @@ void pset_cake_thief()
 static long long max_knapsack(Cake cakes[], size_t n, size_t capacity)
 {
     size_t i, j;
-    C = calloc(n + 1, sizeof(int *));
+    C = calloc(n, sizeof(int *));
     for (i = 0; i < n + 1; ++i)
     {
-        C[i] = calloc(capacity + 1, sizeof(int));
+        C[i] = calloc(capacity, sizeof(int));
     }
 
     for (i = 0; i < n + 1; ++i)

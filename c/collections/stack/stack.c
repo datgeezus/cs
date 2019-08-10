@@ -13,6 +13,7 @@ struct node
 struct stack
 {
 	Node *top;
+	size_t size;
 };
 
 static Node *stack__new_node(void *data, size_t dataSize);
@@ -22,6 +23,11 @@ Stack *Stack_New()
 {
 	Stack *This = calloc(1, sizeof(struct stack));
 	return This;
+}
+
+size_t Stack_Size(Stack *This)
+{
+	return This->size;
 }
 
 int Stack_IsEmpty(Stack *This)
@@ -34,6 +40,7 @@ void Stack_Push(Stack *This, void *data, size_t dataSize)
 	Node *new = stack__new_node(data, dataSize);
 	new->next = This->top;
 	This->top = new;
+	This->size += 1;
 }
 
 void Stack_PushPtr(Stack *This, const void *data)
@@ -42,6 +49,7 @@ void Stack_PushPtr(Stack *This, const void *data)
     new->data = data;
     new->next = This->top;
     This->top = new;
+	This->size += 1;
 }
 
 void Stack_PushInt(Stack * This, int data)
@@ -54,6 +62,7 @@ void Stack_Pop(Stack *This)
 	Node *next = This->top->next;
 	stack__free_node(&This->top);
 	This->top = next;
+	This->size -= 1;
 }
 
 void *Stack_PopPtr(Stack *This)
@@ -62,6 +71,7 @@ void *Stack_PopPtr(Stack *This)
 	Node *next = This->top->next;
     free(This->top);
 	This->top = next;
+	This->size -= 1;
     return data;
 }
 

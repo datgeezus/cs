@@ -5,6 +5,7 @@
 typedef struct stack Stack;
 
 Stack *Stack_New();
+size_t Stack_Size(Stack *This);
 int Stack_IsEmpty(Stack *This);
 void Stack_Push(Stack *This, void *data, size_t dataSize);
 void Stack_Pop(Stack *This);

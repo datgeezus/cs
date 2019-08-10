@@ -6,6 +6,7 @@ typedef struct queue Queue;
 
 Queue *Queue_New();
 
+size_t Queue_Size(Queue *This);
 void *Queue_Peek(Queue *This);
 void Queue_Enqueue(Queue *This, void *data, size_t dataSize);
 void Queue_Deque(Queue *This);

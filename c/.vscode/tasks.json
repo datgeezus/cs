@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Main",
+            "type": "shell",
+            "command": "gcc -g collections/**/*.c trees/**/*.c practice/src/*.c -Icollections -Itrees -o main.out",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build Current",
+            "type": "shell",
+            "command": "gcc -g collections/**/*.c trees/**/*.c ${file} -Icollections -Itrees -o main.out",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
