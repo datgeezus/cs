@@ -1,5 +1,6 @@
 #include "queue/queue.h"
 #include "stack/stack.h"
+#include "linkedlist/linkedlist.h"
 #define ROW 9 
 #define COL 10 
 
@@ -10,7 +11,7 @@ struct Point
 { 
     int r; 
     int c; 
-    char move;
+    LinkedList *path;
 }; 
   
 // A Data Structure for queue used in BFS 
@@ -38,11 +39,11 @@ static int mat[ROW][COL] =
   
 
 static int isValid(int r, int c);
-static Queue * shortest_path_in_maze();
+static Stack * shortest_path_in_maze();
 
 int main()
 {
-    Queue *path = shortest_path_in_maze();
+    Stack *path = shortest_path_in_maze();
     int i, j = 0;
     for(i = 0; i < ROW; ++i)
     {
@@ -54,9 +55,9 @@ int main()
     }
     printf("\n");
 
-    while(!Queue_IsEmpty(path))
+    while(!Stack_IsEmpty(path))
     {
-        Point *point = Queue_DequePtr(path);
+        Point *point = Stack_PopPtr(path);
         printf("[%d][%d] -> ", point->r, point->c);
     }
     printf("|\n");
@@ -65,20 +66,22 @@ int main()
     return 0;
 }
 
-static Queue * shortest_path_in_maze()
+static Stack * shortest_path_in_maze()
 {
-    Point source = {0, 0, 'S'}; 
-    Point dest = {8, 1, 'D'}; 
+    Point source = {0, 0, LinkedList_New()}; 
+    Point dest = {8, 1, LinkedList_New()}; 
 
     /* BFS */
-    Queue *path = Queue_New();
+    Queue *visit = Queue_New();
+    Stack *path = Stack_New();
 
-    Queue_EnqueuePtr(path, &source);
+    Queue_EnqueuePtr(visit, &source);
+    Stack_PushPtr(path, &source);
     mat[source.r][source.c] = 4;
 
-    while(!Queue_IsEmpty(path))
+    while(!Queue_IsEmpty(visit))
     {
-        Point *curr = (Point *)Queue_DequePtr(path);
+        Point *curr = (Point *)Queue_DequePtr(visit);
         if((curr->r == dest.r) && (curr->c == dest.c))
         {
             mat[curr->r][curr->c] = 4;
@@ -97,11 +100,12 @@ static Queue * shortest_path_in_maze()
                     Point *new = malloc(sizeof(Point));
                     new->c = nextc;
                     new->r = nextr;
-                    new->move = MOVES[i];
-                    Queue_EnqueuePtr(path, new);
+                    LinkedList_Append(new->path, &MOVES[i], 2);
+                    Queue_EnqueuePtr(visit, new);
+                    Stack_PushPtr(path, new);
                 }
-                // mat[curr->r][curr->c] = tmp;
             }
+            // Stack_PopPtr(path);
         }
     }
 
