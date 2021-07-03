@@ -7,7 +7,8 @@ fib(n): 0, 1, 1, 2, 3, 5, 8, 13, 21
 # Recursive and memoized
 #  time: O(n)
 # space: O(n)
-def fib(n, memo={}):
+def fib(n, memo=None):
+    memo = {} if memo is None else memo
     # base cases
     if n == 0: return 0
     if n == 1 or n == 2: return 1
