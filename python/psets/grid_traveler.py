@@ -37,6 +37,20 @@ def grid_traveler(m, n, memo={}):
 
     return memo[(m,n)]
 
+def grid_traveler_tab(m, n):
+    # base cases
+    if m == 1 and n == 1: return 1
+    if m == 0 or n == 0: return 0
+
+    table = m * [[0] * n]
+    for i in range(m):
+        for j in range(n):
+            if i == 0 or j == 0:
+                table[i][j] = 1
+            else:
+                table[i][j] = table[i-1][j] + table[i][j-1]
+    return table[m-1][n-1]
+
 if __name__ == "__main__":
     print(grid_traveler(1, 1)) # 1
     print(grid_traveler(2, 3)) # 3
@@ -44,3 +58,9 @@ if __name__ == "__main__":
     print(grid_traveler(3, 3)) # 6
     print(grid_traveler(18, 18)) # 2333606220
     print(grid_traveler(300, 500))
+    print(grid_traveler_tab(1, 1)) # 1
+    print(grid_traveler_tab(2, 3)) # 3
+    print(grid_traveler_tab(3, 2)) # 3
+    print(grid_traveler_tab(3, 3)) # 6
+    print(grid_traveler_tab(18, 18)) # 2333606220
+    print(grid_traveler_tab(300, 500))
