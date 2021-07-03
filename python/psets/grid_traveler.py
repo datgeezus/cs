@@ -27,7 +27,8 @@ no way to travel a no-grid
 
 """
 
-def grid_traveler(m, n, memo={}):
+def grid_traveler(m, n, memo=None):
+    memo = {} if memo is None else memo
     # base cases
     if m == 1 and n == 1: return 1
     if m == 0 or n == 0: return 0
