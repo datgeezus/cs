@@ -24,12 +24,37 @@ return its bottom-up level order traversal as:
 #         self.left = None
 #         self.right = None
 
-import queue
+from queue import Queue
+from collections import deque
 
 def levelOrderBottom(root):
-    visit = queue.Queue()
-    visited = []
+  if root is None: return []
 
+  q = Queue()
+  # levels = deque()
+  levels = []
+
+  q.put(root)
+  n_level = 0
+  while(not q.empty()):
+    curr = q.get()
+    if curr is None:
+      n_level -= 1
+      continue
+    print(len(levels))
+    if len(levels) == n_level:
+      levels.append([curr.val])
+    else:
+      levels[n_level].append(curr.val)
+    q.put(curr.left)
+    q.put(curr.right)
+    n_level += 1
+
+  return levels
+
+
+def getLevel(index):
+  return 
 
 
 
@@ -40,10 +65,10 @@ class TreeNode(object):
         self.right = None
 
 
-if __name__ == '__name__':
+if __name__ == '__main__':
     root = TreeNode(3)
     root.left = TreeNode(9)
     root.right = TreeNode(20)
     root.right.left = TreeNode(15)
     root.right.right = TreeNode(7)
-    print levelOrderBottom(root)
+    print(levelOrderBottom(root))
