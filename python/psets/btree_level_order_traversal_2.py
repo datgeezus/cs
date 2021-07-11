@@ -28,29 +28,26 @@ from queue import Queue
 from collections import deque
 
 def levelOrderBottom(root):
-  if root is None: return []
+  return bfs(root)
 
-  q = Queue()
-  # levels = deque()
+def bfs(root):
+  if root is None: []
+
   levels = []
-
+  q = Queue()
   q.put(root)
-  n_level = 0
-  while(not q.empty()):
-    curr = q.get()
-    if curr is None:
-      n_level -= 1
-      continue
-    print(len(levels))
-    if len(levels) == n_level:
-      levels.append([curr.val])
-    else:
-      levels[n_level].append(curr.val)
-    q.put(curr.left)
-    q.put(curr.right)
-    n_level += 1
-
-  return levels
+  while not q.empty():
+    n = q.qsize()
+    this_level = []
+    while n > 0:
+      tmp = q.get()
+      this_level.append(tmp.val)
+      if tmp.left: q.put(tmp.left)
+      if tmp.right: q.put(tmp.right)
+      n -= 1
+    levels.append(this_level)
+  return  levels
+  
 
 
 def getLevel(index):
