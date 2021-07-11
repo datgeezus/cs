@@ -44,11 +44,11 @@ def topo_sort(graph: dict):
 def shortest_path(graph: dict, start, end=None) -> Union[int, list]:
     topo = topo_sort(graph)
     dist = {i:None for i in graph}
-    dist[start] = 0
+    dist[start] = (0,start)
     for idx in topo:
         if dist[idx] is None: continue
         for (edge, w) in graph[idx]:
-            new_dist = dist[idx] + w
+            new_dist = (dist[idx][0] + w, idx)
             if dist[edge] is None: 
                 dist[edge] = new_dist
             else:
@@ -74,4 +74,15 @@ if __name__ == "__main__":
     dfs('a', graph, strategy=strategy)
     print(f"Topological sort of graph is :{topo_sort(graph)}")
     print(f"The shortest paths from c are: {shortest_path(graph, 'c')}")
-    print(f"The shortest path from a to h is: {shortest_path(graph, 'a', 'h')}")
+    print(f"The shortest distances from a are: {shortest_path(graph, 'a')}")
+    paths = shortest_path(graph, 'a')
+    start = 'a'
+    x = 'h'
+    y = paths[x][1]
+    while start != y:
+        print(f"{x}->{y}")
+        x = y
+        y = paths[x][1]
+    print(f'{x}->{start}')
+
+    print(f"The shortest distance from a to h is: {shortest_path(graph, 'a', 'h')[0]}")
