@@ -4,9 +4,8 @@ def can_construct(target:str, words:list[str], memo:dict=None):
     if target in memo: return memo[target]
 
     for word in words:
-        ans = target.find(word)
         # pick only prefix
-        if ans == 0:
+        if target.find(word) == 0:
             suffix = target[len(word):]
             if can_construct(suffix, words, memo):
                 memo[target] = True

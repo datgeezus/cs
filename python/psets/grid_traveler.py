@@ -43,7 +43,7 @@ def grid_traveler_tab(m, n):
     if m == 1 and n == 1: return 1
     if m == 0 or n == 0: return 0
 
-    table = m * [[0] * n]
+    table = [[0 for _ in range(n)] for _ in range(m)]
     for i in range(m):
         for j in range(n):
             if i == 0 or j == 0:
