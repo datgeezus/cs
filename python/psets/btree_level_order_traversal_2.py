@@ -26,41 +26,31 @@ return its bottom-up level order traversal as:
 
 from queue import Queue
 from collections import deque
+from typing import List
+from data_structures.node import TreeNode
 
-def levelOrderBottom(root):
-  return bfs(root)
-
-def bfs(root):
-  if root is None: []
-
-  levels = []
-  q = Queue()
-  q.put(root)
-  while not q.empty():
-    n = q.qsize()
-    this_level = []
-    while n > 0:
-      tmp = q.get()
-      this_level.append(tmp.val)
-      if tmp.left: q.put(tmp.left)
-      if tmp.right: q.put(tmp.right)
-      n -= 1
-    levels.append(this_level)
-  return  levels
-  
+def level_order(root): 
+    return bfs(root)
 
 
-def getLevel(index):
-  return 
-
-
-
-class TreeNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
+def bfs(root: TreeNode) -> List[List[int]]:
+    if root is None: return []
+    levels = []
+    q = Queue()
+    q.put(root)
+    while not q.empty():
+        n = q.qsize()
+        this_level = []
+        while n > 0:
+            tmp = q.get()
+            this_level.append(tmp.val)
+            if tmp.left:
+                q.put(tmp.left)
+            if tmp.right:
+                q.put(tmp.right)
+            n -= 1
+        levels.append(this_level)
+    return levels
 
 if __name__ == '__main__':
     root = TreeNode(3)
@@ -68,4 +58,4 @@ if __name__ == '__main__':
     root.right = TreeNode(20)
     root.right.left = TreeNode(15)
     root.right.right = TreeNode(7)
-    print(levelOrderBottom(root))
+    print(level_order(root))

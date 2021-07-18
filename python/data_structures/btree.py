@@ -1,5 +1,5 @@
 from queue import Queue
-from node import TreeNode
+from .node import TreeNode
 
 def dfs_in_order(root: TreeNode, callback=None):
     if root is None: return
