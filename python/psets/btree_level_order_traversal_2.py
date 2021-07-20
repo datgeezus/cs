@@ -41,14 +41,13 @@ def bfs(root: TreeNode) -> List[List[int]]:
     while not q.empty():
         n = q.qsize()
         this_level = []
-        while n > 0:
+        for _ in range(n):
             tmp = q.get()
             this_level.append(tmp.val)
             if tmp.left:
                 q.put(tmp.left)
             if tmp.right:
                 q.put(tmp.right)
-            n -= 1
         levels.append(this_level)
     return levels
 

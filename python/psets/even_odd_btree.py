@@ -8,8 +8,7 @@ def is_even_odd(root: TreeNode) -> bool:
     while not q.empty():
         n = q.qsize()
         prev = None
-        while n > 0:
-            n -= 1
+        for _ in range(n):
             curr = q.get()
             # visit 
             if curr is None or prev is None: 
