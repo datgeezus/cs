@@ -24,37 +24,46 @@ return its bottom-up level order traversal as:
 #         self.left = None
 #         self.right = None
 
-from queue import Queue
 from collections import deque
 from typing import List
 from data_structures.node import TreeNode
 
-def level_order(root): 
-    return bfs(root)
-
-
 def bfs(root: TreeNode) -> List[List[int]]:
     if root is None: return []
     levels = []
-    q = Queue()
-    q.put(root)
-    while not q.empty():
-        n = q.qsize()
+    q = deque()
+    q.append(root)
+    while q:
+        n = len(q)
         this_level = []
         for _ in range(n):
-            tmp = q.get()
+            tmp = q.popleft()
             this_level.append(tmp.val)
             if tmp.left:
-                q.put(tmp.left)
+                q.append(tmp.left)
             if tmp.right:
-                q.put(tmp.right)
+                q.append(tmp.right)
         levels.append(this_level)
     return levels
 
+def bfs_bootom_up(root: TreeNode) -> List[List[int]]:
+    if root is None: return []
+    levels = deque()
+    q = deque()
+    q.append(root)
+    while q:
+        n = len(q)
+        this_level = []
+        for _ in range(n):
+            tmp = q.popleft()
+            this_level.append(tmp.val)
+            if tmp.left:
+                q.append(tmp.left)
+            if tmp.right:
+                q.append(tmp.right)
+        levels.appendleft(this_level)
+    return list(levels)
+
 if __name__ == '__main__':
-    root = TreeNode(3)
-    root.left = TreeNode(9)
-    root.right = TreeNode(20)
-    root.right.left = TreeNode(15)
-    root.right.right = TreeNode(7)
-    print(level_order(root))
+    print(bfs(TreeNode.from_list([3,9,20,None,None,15,7])))
+    print(bfs_bootom_up(TreeNode.from_list([3,9,20,None,None,15,7])))

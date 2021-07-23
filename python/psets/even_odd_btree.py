@@ -1,19 +1,19 @@
-from queue import Queue
+from collections import deque
 from data_structures.node import TreeNode
 
 def is_even_odd(root: TreeNode) -> bool:
-    q = Queue()
-    q.put(root)
+    q = deque()
+    q.append(root)
     this_level = 0
-    while not q.empty():
-        n = q.qsize()
+    while q:
+        n = len(q)
         prev = None
         for _ in range(n):
-            curr = q.get()
+            curr = q.popleft()
             # visit 
             if curr is None or prev is None: 
-                if curr.left is not None: q.put(curr.left)
-                if curr.right is not None: q.put(curr.right)
+                if curr.left is not None: q.append(curr.left)
+                if curr.right is not None: q.append(curr.right)
                 prev = curr
                 continue
             
@@ -21,8 +21,8 @@ def is_even_odd(root: TreeNode) -> bool:
                 if not check_even_level(prev.val, curr.val): return False
             elif not check_odd_level(prev.val, curr.val): return False
             
-            if curr.left is not None: q.put(curr.left)
-            if curr.right is not None: q.put(curr.right)
+            if curr.left is not None: q.append(curr.left)
+            if curr.right is not None: q.append(curr.right)
             prev = curr
         this_level += 1
     return True

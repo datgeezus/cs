@@ -1,5 +1,5 @@
-from queue import Queue
-from .node import TreeNode
+from collections import deque
+from data_structures.node import TreeNode
 
 def dfs_in_order(root: TreeNode, callback=None):
     if root is None: return
@@ -21,15 +21,15 @@ def dfs_post_order(root: TreeNode, callback=None):
 
 def bfs(root: TreeNode, callback=None):
     if root is None: return
-    q = Queue()
-    q.put(root)
-    while not q.empty():
-        curr = q.get()
+    q = deque()
+    q.append(root)
+    while q:
+        curr = q.popleft()
         callback(curr)
         if curr.left: 
-            q.put(curr.left)
+            q.append(curr.left)
         if curr.right: 
-            q.put(curr.right)
+            q.append(curr.right)
 
 if __name__ == "__main__":
     """
