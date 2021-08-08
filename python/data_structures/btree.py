@@ -89,6 +89,20 @@ class BTree(Generic[T]):
             if curr.right: 
                 q.append(curr.right)
 
+    @staticmethod
+    def level_order_traversal(root: BTreeNode, strategy: BTreeStrategy):
+        if root is None: return
+        q = deque()
+        q.append(root)
+        while q:
+            n = len(q)
+            for _ in range(n):
+                curr = q.popleft()
+                if curr is None: continue
+                strategy.apply(curr.val, strategy.data)
+                q.append(curr.left)
+                q.append(curr.right)
+
 if __name__ == "__main__":
     """
     Building Tree
@@ -104,6 +118,9 @@ if __name__ == "__main__":
 
     print("BFS")
     btree.bfs(btree.root, strategy)
+
+    print("Level Order Traversal")
+    btree.level_order_traversal(btree.root, strategy)
 
     print("DFS pre order")
     btree.dfs(DfsType.PRE_ORDER, strategy)

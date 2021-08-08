@@ -3,11 +3,11 @@ Given the root of a binary tree, imagine yourself standing on the right side of 
 return the values of the nodes you can see ordered from top to bottom.
 """
 
+from data_structures.btree import BTree, BTreeNode
 from typing import List
-from data_structures.node import TreeNode
 from collections import deque
 
-def right_side_view(root: TreeNode) -> List[int]:
+def right_side_view(root: BTreeNode) -> List[int]:
     if root is None: return []
     q = deque()
     q.append(root)
@@ -29,6 +29,6 @@ def right_side_view(root: TreeNode) -> List[int]:
 
 
 if __name__ == "__main__":
-    print(right_side_view(TreeNode.from_list([1,2]))) # Expected [1,2]
-    print(right_side_view(TreeNode.from_list([1,None,3]))) # Expected [1,2]
-    print(right_side_view(TreeNode.from_list([1,2,3,None,5,None,4]))) # Expected [1,3,4]
+    print(right_side_view(BTree.from_list([1,2]).root)) # Expected [1,2]
+    print(right_side_view(BTree.from_list([1,None,3]).root)) # Expected [1,2]
+    print(right_side_view(BTree.from_list([1,2,3,None,5,None,4]).root)) # Expected [1,3,4]

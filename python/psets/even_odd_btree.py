@@ -1,7 +1,7 @@
 from collections import deque
-from data_structures.node import TreeNode
+from data_structures.btree import BTree, BTreeNode
 
-def is_even_odd(root: TreeNode) -> bool:
+def is_even_odd(root: BTreeNode) -> bool:
     q = deque()
     q.append(root)
     this_level = 0
@@ -34,6 +34,6 @@ def check_even_level(prev, curr):
     return (prev % 2 != 0) and (curr % 2 != 0) and prev < curr
 
 if __name__ == "__main__":
-    print(is_even_odd(TreeNode.from_list([5,4,2,3,3,7])))
-    print(is_even_odd(TreeNode.from_list([1,10,4,3,None,7,9,12,8,6,None,None,2])))
-    print(is_even_odd(TreeNode.from_list([5,9,1,3,5,7])))
+    print(is_even_odd(BTree.from_list([5,4,2,3,3,7]).root))
+    print(is_even_odd(BTree.from_list([1,10,4,3,None,7,9,12,8,6,None,None,2]).root))
+    print(is_even_odd(BTree.from_list([5,9,1,3,5,7]).root))

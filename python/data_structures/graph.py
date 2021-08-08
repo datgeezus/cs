@@ -1,6 +1,6 @@
 import sys
-from dataclasses import dataclass
-from typing import Callable, TypeVar, Union
+from dataclasses import dataclass, field
+from typing import Callable, Generic, Type, TypeVar, Union
 
 T = TypeVar('T')
 
@@ -8,6 +8,11 @@ T = TypeVar('T')
 class Strategy:
     callback: Callable[[str, dict, T], None]
     data: T = None
+
+@dataclass
+class GraphNode(Generic[T]):
+    val: T
+    edges: list[Type["GraphNode"]] = field(default_factory=list)
 
 @dataclass
 class TopoSortData:

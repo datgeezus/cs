@@ -26,9 +26,9 @@ return its bottom-up level order traversal as:
 
 from collections import deque
 from typing import List
-from data_structures.node import TreeNode
+from data_structures.btree import BTree, BTreeNode
 
-def bfs(root: TreeNode) -> List[List[int]]:
+def bfs(root: BTreeNode) -> List[List[int]]:
     if root is None: return []
     levels = []
     q = deque()
@@ -46,7 +46,7 @@ def bfs(root: TreeNode) -> List[List[int]]:
         levels.append(this_level)
     return levels
 
-def bfs_bootom_up(root: TreeNode) -> List[List[int]]:
+def bfs_bootom_up(root: BTreeNode) -> List[List[int]]:
     if root is None: return []
     levels = deque()
     q = deque()
@@ -65,5 +65,5 @@ def bfs_bootom_up(root: TreeNode) -> List[List[int]]:
     return list(levels)
 
 if __name__ == '__main__':
-    print(bfs(TreeNode.from_list([3,9,20,None,None,15,7])))
-    print(bfs_bootom_up(TreeNode.from_list([3,9,20,None,None,15,7])))
+    print(bfs(BTree.from_list([3,9,20,None,None,15,7]).root))
+    print(bfs_bootom_up(BTree.from_list([3,9,20,None,None,15,7]).root))
