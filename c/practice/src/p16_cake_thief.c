@@ -18,23 +18,23 @@ const Cake cakes[] =
 };
 
 static int **C = { NULL };
-static long long max_knapsack(Cake cakes[], size_t n, size_t capacity);
-static long long max_knapsack_rec(Cake cakes[], size_t n, size_t capacity);
-static long long max_knapsack_bup(Cake cakes[], size_t n, size_t capacity);
-static long long max_unbounded_knapsack_bup(Cake cakes[], size_t n, size_t capacity);
+static long long max_knapsack(const Cake cakes[], size_t n, size_t capacity);
+static long long max_knapsack_rec(const Cake cakes[], size_t n, size_t capacity);
+static long long max_knapsack_bup(const Cake cakes[], size_t n, size_t capacity);
+static long long max_unbounded_knapsack_bup(const Cake cakes[], size_t n, size_t capacity);
 
 void pset_cake_thief()
 {
     max_knapsack(cakes, 3, 20);
 }
 
-static long long max_knapsack(Cake cakes[], size_t n, size_t capacity)
+static long long max_knapsack(const Cake cakes[], size_t n, size_t capacity)
 {
     size_t i, j;
     C = calloc(n, sizeof(int *));
     for (i = 0; i < n + 1; ++i)
     {
-        C[i] = calloc(capacity, sizeof(int));
+        C[i] = (int*) calloc(capacity, sizeof(int));
     }
 
     for (i = 0; i < n + 1; ++i)
@@ -51,7 +51,7 @@ static long long max_knapsack(Cake cakes[], size_t n, size_t capacity)
     printf("v: %d\n", v);
 }
 
-static long long max_knapsack_rec(Cake cakes[], size_t n, size_t c)
+static long long max_knapsack_rec(const Cake cakes[], size_t n, size_t c)
 {
     /* DP(i, C) = max(PD(i + 1, C), v[i] + DP(i + 1, C - c[i])) */
     long long res = 0;
@@ -81,7 +81,7 @@ static long long max_knapsack_rec(Cake cakes[], size_t n, size_t c)
     return res;
 }
 
-static long long max_knapsack_bup(Cake cakes[], size_t n, size_t capacity)
+static long long max_knapsack_bup(const Cake cakes[], size_t n, size_t capacity)
 {
     /* C[i, j] = max(C[i + 1, j], v[i] + C[i + 1, j - S[i]]) */
     int i = 0;
@@ -101,8 +101,8 @@ static long long max_knapsack_bup(Cake cakes[], size_t n, size_t capacity)
             }
             else
             {
-                long long tmp1 = C[i - 1, w];
-                long long tmp2 = cakes[i].value + C[i - 1, w - cakes[i].weight];
+                long long tmp1 = (long long) C[i - 1, w];
+                long long tmp2 = (long long) C[i - 1, w - cakes[i].weight] + cakes[i].value;
                 C[i][w] = MAX(tmp1, tmp2);
             }
         }
@@ -111,7 +111,7 @@ static long long max_knapsack_bup(Cake cakes[], size_t n, size_t capacity)
     return C[n][capacity];
 }
 
-static long long max_unbounded_knapsack_bup(Cake cakes[], size_t n, size_t capacity)
+static long long max_unbounded_knapsack_bup(const Cake cakes[], size_t n, size_t capacity)
 {
     size_t currCap = 0;
     long long *maxVatC = calloc(capacity + 1, sizeof(long long));

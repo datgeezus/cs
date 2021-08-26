@@ -4,11 +4,11 @@
 
 const char *tests[] =
 {
-    {"[]"},
-    {"[{]"},
-    {"[(sadasd{})]"},
-    {"{{[[(())]]}}"},
-    {""},
+    "[]",
+    "[{]",
+    "[(sadasd{})]",
+    "{{[[(())]]}}",
+    "",
 };
 
 static int isValid(const char *code);

@@ -44,7 +44,7 @@ struct bfspathdata
 
 static int graph__bfs(Graph *This, GraphNode *start, GraphNodeForEach cb, void *udata, HashTable **path);
 static int graph__dfs(Graph *This, GraphNode *start, GraphNodeForEach cb, void *udata, HashTable **path);
-static const char **graph__reconstruct_path(HashTable *path, GraphNode *start, GraphNode *end);
+static char **graph__reconstruct_path(HashTable *path, GraphNode *start, GraphNode *end);
 static int graph__foreach_path(GraphNode *node, void *udata);
 static int graph__foreach_print(GraphNode *node, void *udata);
 static void graph__foreach_pprint(const char *label, void *udata);
@@ -233,7 +233,7 @@ static void graph__foreach_pprint(const char *label, void *udata)
 static int graph__foreach_path(GraphNode *node, void *udata)
 {
     int exit = 0;
-    struct bfspathdata *data = (struct bfsdata *)udata;
+    struct bfspathdata *data = (struct bfspathdata *)udata;
     if (0 == strcmp(node->label, data->end->label))
     {
         exit = 1;
@@ -242,7 +242,7 @@ static int graph__foreach_path(GraphNode *node, void *udata)
     return exit;
 }
 
-static const char **graph__reconstruct_path(HashTable *path, GraphNode *start, GraphNode *end)
+static char **graph__reconstruct_path(HashTable *path, GraphNode *start, GraphNode *end)
 {
     char **shortestPath = NULL;
     size_t i = 0;

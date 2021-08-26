@@ -1,10 +1,15 @@
 #include <limits.h>
+#include <stdio.h>
+
+static int findPair(int arr[], int N);
 
 // Function to find a pair in an array with minimum absolute sum
-int findPair(int arr[], int N)
+static int findPair(int arr[], int N)
 {
 	if (N < 2)
-		return;
+	{
+		return -1;
+	}
 
 
 	// maintain two indexes pointing to end-points of the array

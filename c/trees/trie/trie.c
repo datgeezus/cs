@@ -20,7 +20,7 @@ struct trie {
 
 struct tdata {
     void *udata;
-    HashTableForEach cb;
+    TrieForEach cb;
 };
 
 static TNode *trie__node_new(const char c);
@@ -46,11 +46,11 @@ void Trie_AddStr(Trie *This, const char *str)
     TNode *curr = This->start;
     for(;  i < strlen(str); ++i)
     {
-        char car[2] = { str[i], 0};
+        const char car[2] = { str[i], 0};
         TNode *new = HashTable_Find(curr->children, car);
         if(NULL == new)
         {
-            new = trie__node_new(car);
+            new = trie__node_new(car[0]);
             HashTable_InsertPtr(curr->children, car, new);
         }
 

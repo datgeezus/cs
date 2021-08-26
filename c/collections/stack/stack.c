@@ -17,7 +17,7 @@ struct stack
 };
 
 static Node *stack__new_node(void *data, size_t dataSize);
-static stack__free_node(Node **node);
+static void stack__free_node(Node **node);
 
 Stack *Stack_New()
 {
@@ -43,7 +43,7 @@ void Stack_Push(Stack *This, void *data, size_t dataSize)
 	This->size += 1;
 }
 
-void Stack_PushPtr(Stack *This, const void *data)
+void Stack_PushPtr(Stack *This, void *data)
 {
     Node *new = calloc(1, sizeof(Node));
     new->data = data;
@@ -123,7 +123,7 @@ static Node *stack__new_node(void *data, size_t dataSize)
 	return This;
 }
 
-static stack__free_node(Node **node)
+static void stack__free_node(Node **node)
 {
 	void *data = (*(node))->data;
 	free(data);

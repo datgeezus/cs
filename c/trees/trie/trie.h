@@ -3,7 +3,7 @@
 
 typedef struct trie Trie;
 
-typedef int(*TrieForEach)(const char c, void *data, void *udata);
+typedef void(*TrieForEach)(const char c, void *data, void *udata);
 
 Trie *Trie_New();
 void Trie_AddStr(Trie *This, const char *str);
