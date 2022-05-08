@@ -3,9 +3,6 @@
 # Alphanumeric characters include letters and numbers.
 # Given a string s, return true if it is a palindrome, or false otherwise.
 
-from operator import is_
-
-
 def is_palindrome(s: str) -> bool:
     def is_alpha(c: str) -> bool:
         return (ord('A') <= ord(c) <= ord('Z')) \
