@@ -1,39 +1,21 @@
-#-------------------------------------------------------------------------------------------------------------
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License. See https://go.microsoft.com/fwlink/?linkid=2090316 for license information.
-#-------------------------------------------------------------------------------------------------------------
+# See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.234.0/containers/python-3/.devcontainer/base.Dockerfile
 
-FROM python:3
+# [Choice] Python version (use -bullseye variants on local arm64/Apple Silicon): 3, 3.10, 3.9, 3.8, 3.7, 3.6, 3-bullseye, 3.10-bullseye, 3.9-bullseye, 3.8-bullseye, 3.7-bullseye, 3.6-bullseye, 3-buster, 3.10-buster, 3.9-buster, 3.8-buster, 3.7-buster, 3.6-buster
+ARG VARIANT="3.10-bullseye"
+FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
 
-# Avoid warnings by switching to noninteractive
-ENV DEBIAN_FRONTEND=noninteractive
+# [Choice] Node.js version: none, lts/*, 16, 14, 12, 10
+ARG NODE_VERSION="none"
+RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
-# Copy requirements.txt (if found) to a temp locaition so we can install it. Also
-# copy "noop.txt" so the COPY instruction does not fail if no requirements.txt exists.
-COPY requirements.txt* .devcontainer/noop.txt /tmp/pip-tmp/
+# [Optional] If your pip requirements rarely change, uncomment this section to add them to the image.
+# COPY requirements.txt /tmp/pip-tmp/
+# RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
+#    && rm -rf /tmp/pip-tmp
 
-# Configure apt and install packages
-RUN apt-get update \
-    && apt-get -y install --no-install-recommends apt-utils 2>&1 \
-    #
-    # Verify git, process tools, lsb-release (common in install instructions for CLIs) installed
-    && apt-get -y install git procps lsb-release \
-    #
-    # Install pylint
-    && pip install pylint \
-    #
-    # Update Python environment based on requirements.txt (if presenet)
-    && if [ -f "/tmp/pip-tmp/requirements.txt" ]; then pip install -r /tmp/pip-tmp/requirements.txt; fi \
-    && rm -rf /tmp/pip-tmp \
-    #
-    # Clean up
-    && apt-get autoremove -y \
-    && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/*
+# [Optional] Uncomment this section to install additional OS packages.
+# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+#     && apt-get -y install --no-install-recommends <your-package-list-here>
 
-# Switch back to dialog for any ad-hoc use of apt-get
-ENV DEBIAN_FRONTEND=dialog
-
-ENV PYTHONPATH "$PYTHONPATH:./"
-
-
+# [Optional] Uncomment this line to install global node packages.
+# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
