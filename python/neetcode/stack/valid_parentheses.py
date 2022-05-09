@@ -9,17 +9,18 @@ An input string is valid if:
 
 from collections import deque
 
+
 def is_valid_parentheses(s: str) -> bool:
     stack = deque()
-    close_to_open = { 
-        ")": "(", 
-        "}": "{", 
-        "]": "[" }
-               
+    close_to_open = {
+        ")": "(",
+        "}": "{",
+        "]": "["}
+
     for c in s:
-        if c in close_to_open: 
-            if stack and stack[-1] == close_to_open[c]: 
-                stack.pop() 
+        if c in close_to_open:
+            if stack and stack[-1] == close_to_open[c]:
+                stack.pop()
             else:
                 return False
         else:
@@ -27,7 +28,7 @@ def is_valid_parentheses(s: str) -> bool:
 
     # valid if stack is empty
     return True if not stack else False
-               
+
 
 if __name__ == "__main__":
     assert is_valid_parentheses("()")
