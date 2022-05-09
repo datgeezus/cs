@@ -44,10 +44,18 @@ def num_islands(grid: list[list[str]]) -> int:
             
 
 if __name__ == "__main__":
-    graph = [
+    grid = [
         ["1", "1", "0", "0", "0"],
         ["1", "1", "0", "0", "0"],
         ["0", "0", "1", "0", "0"],
         ["0", "0", "0", "1", "1"]
     ]
-    assert num_islands(graph) == 3
+    assert num_islands(grid) == 3
+    
+    grid2 = [
+        ["1", "1", "1", "1", "0"],
+        ["1", "1", "0", "1", "0"],
+        ["1", "1", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"]
+    ]
+    assert num_islands(grid2) == 1
