@@ -14,17 +14,20 @@ class TreeNode:
         self.right = right
         
 def get_diameter(root: Optional[TreeNode]) -> int:
-    def dfs(root: Optional[TreeNode], diameter: int=0) -> int:
+    diameter = 0
+    def dfs(root: Optional[TreeNode]) -> int:
+        nonlocal diameter
         if not root:
             return 0
     
-        left = dfs(root.left, diameter)
-        right = dfs(root.right, diameter)
+        left = dfs(root.left)
+        right = dfs(root.right)
         
         diameter = max(left + right, diameter)
         return 1 + max(left, right)
 
-    return dfs(root)
+    dfs(root)
+    return diameter
 
 if __name__ == "__main__":
     n5 = TreeNode(5)
@@ -33,3 +36,8 @@ if __name__ == "__main__":
     n3 = TreeNode(3)
     n1 = TreeNode(1, n2, n3)
     assert get_diameter(n1) == 3
+    
+    n = TreeNode(1, TreeNode(2))
+    assert get_diameter(n) == 1
+
+    print("All tests passed")
