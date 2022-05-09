@@ -11,12 +11,12 @@ from typing import Optional, Callable
 @dataclass
 class StrategyData:
     diameter: int
-
+    
+@dataclass
 class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+    val: int
+    left: 'TreeNode' = None
+    right: 'TreeNode' = None
         
 def get_diameter(root: Optional[TreeNode]) -> int:
     
