@@ -5,7 +5,12 @@ This path may or may not pass through the root.
 The length of a path between two nodes is represented by the number of edges between them.
 """
 
-from typing import Optional
+from dataclasses import dataclass
+from typing import Optional, Callable
+
+@dataclass
+class StrategyData:
+    diameter: int
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -14,20 +19,23 @@ class TreeNode:
         self.right = right
         
 def get_diameter(root: Optional[TreeNode]) -> int:
-    diameter = 0
-    def dfs(root: Optional[TreeNode]) -> int:
-        nonlocal diameter
+    
+    def strategy(left: int, right: int, data: StrategyData):
+        data.diameter = max(left + right, data.diameter)
+
+    def dfs(root: Optional[TreeNode], strategy: Callable[[int, int, StrategyData], None], data: StrategyData) -> int:
         if not root:
             return 0
     
-        left = dfs(root.left)
-        right = dfs(root.right)
+        left = dfs(root.left, strategy, data)
+        right = dfs(root.right, strategy, data)
         
-        diameter = max(left + right, diameter)
+        strategy(left, right, data)
         return 1 + max(left, right)
 
-    dfs(root)
-    return diameter
+    data = StrategyData(0)
+    dfs(root, strategy, data)
+    return data.diameter
 
 if __name__ == "__main__":
     n5 = TreeNode(5)
