@@ -5,8 +5,11 @@ to any other uppercase English character. You can perform this operation at most
 Return the length of the longest substring containing the same letter you can get after performing the above operations.
 """
 
+from collections import defaultdict
+
+
 def character_replacement(s: str, k: int) -> int:
-    count = {}
+    count = defaultdict(int)
     ans = 0
     left = 0
     
@@ -14,7 +17,7 @@ def character_replacement(s: str, k: int) -> int:
         return right - left + 1
     
     for right,val in enumerate(s):
-        count[val] = 1 + count.get(val, 0)
+        count[val] += 1
         max_freq = max(count.values())
         while (window_lenght(left, right) - max_freq) > k:
             count[s[left]] -= 1
