@@ -19,33 +19,31 @@ and return the intersection of both visited sets
 
 """
 
-from collections import deque
-
 
 def water_flow(heights: list[list[int]]) -> list[list[int]]:
     N_ROWS = len(heights)
     N_COLS = len(heights[0])
-    MOVES = [(0,1), (1,0), (0,-1), (-1,0)]
+    MOVES = [(0, 1), (1, 0), (0, -1), (-1, 0)]
     pac = set()
     atl = set()
-    
+
     def is_valid(r: int, c: int, visited: set[int], prev_h: int) -> bool:
-        return (r,c) not in visited \
+        return (r, c) not in visited \
             and r >= 0 and r < N_ROWS \
             and c >= 0 and c < N_COLS \
             and prev_h <= heights[r][c]
-    
+
     def dfs(r: int, c: int, visited: set[int], prev_h: int) -> None:
         if not is_valid(r, c, visited, prev_h):
             return
-        
+
         visited.add((r, c))
         height = heights[r][c]
-        for dr,dc in MOVES:
+        for dr, dc in MOVES:
             new_r = dr + r
             new_c = dc + c
             dfs(new_r, new_c, visited, height)
-    
+
     for c in range(N_COLS):
         dfs(0, c, pac, heights[0][c])
         dfs(N_ROWS - 1, c, atl, heights[N_ROWS - 1][c])
@@ -57,17 +55,17 @@ def water_flow(heights: list[list[int]]) -> list[list[int]]:
     ans = []
     for r in range(N_ROWS):
         for c in range(N_COLS):
-            if (r,c) in pac and (r,c) in atl:
-                ans.append([r,c])
+            if (r, c) in pac and (r, c) in atl:
+                ans.append([r, c])
     return ans
 
 
-
 if __name__ == "__main__":
-    heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]
-    flow = [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]
+    heights = [[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [
+        2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]]
+    flow = [[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]]
     assert water_flow(heights) == flow
-    
-    heights = [[2,1],[1,2]]
-    flow = [[0,0],[0,1],[1,0],[1,1]]
+
+    heights = [[2, 1], [1, 2]]
+    flow = [[0, 0], [0, 1], [1, 0], [1, 1]]
     assert water_flow(heights) == flow
