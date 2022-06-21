@@ -18,8 +18,8 @@ i = 0
     i = 1
     1 == 1 ? => True
     ans = [[0,1]]
-    
-        
+
+
     [0]
 
 
@@ -39,7 +39,7 @@ def permute(nums: list[int]) -> list[list[int]]:
         if len(permutation) == n_nums:
             ans.append(permutation[:])
             return
-        
+
         for val in nums:
             if val not in used:
                 used.add(val)
@@ -47,7 +47,7 @@ def permute(nums: list[int]) -> list[list[int]]:
                 backtrack()
                 permutation.pop()
                 used.remove(val)
-            
+
     backtrack()
     return ans
 

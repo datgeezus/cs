@@ -7,20 +7,20 @@ The solution set must not contain duplicate subsets. Return the solution in any 
 def subsets(nums: list[int]) -> list[list[int]]:
     ans = []
     subset = []
-    
+
     def dfs(i):
         if i >= len(nums):
             ans.append(subset.copy())
             return
-        
+
         # exclude
         dfs(i + 1)
-        
+
         # include
         subset.append(nums[i])
         dfs(i + 1)
         subset.pop()
-    
+
     dfs(0)
     return ans
 
