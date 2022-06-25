@@ -1,10 +1,11 @@
-# You are given a string s that consists of lower case English letters and brackets. 
+# You are given a string s that consists of lower case English letters and brackets.
 
 # Reverse the strings in each pair of matching parentheses, starting from the innermost one.
 
 # Your result should not contain any brackets.
 
 from collections import deque
+
 
 def reverse_parentheses(s: str) -> str:
     q = deque()
@@ -15,11 +16,13 @@ def reverse_parentheses(s: str) -> str:
             word = []
             while q and q[-1] != "(":
                 word.append(q.pop())
-            if q: q.pop()  # remove "("
+            if q:
+                q.pop()  # remove "("
             for w in word:
                 q.append(w)
-    
+
     return "".join(q)
+
 
 if __name__ == "__main__":
     print(reverse_parentheses("(abcd)"))  # dcba

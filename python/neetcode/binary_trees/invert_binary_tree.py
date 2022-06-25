@@ -3,7 +3,6 @@ Given the root of a binary tree, invert the tree and return its root
 """
 
 
-
 from typing import Optional
 
 
@@ -12,12 +11,12 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
-        
+
 
 def invert_tree(root: Optional[TreeNode]) -> Optional[TreeNode]:
     if not root:
         return None
-    
+
     tmp = root.left
     root.left = root.right
     root.right = tmp

@@ -12,18 +12,18 @@ def character_replacement(s: str, k: int) -> int:
     count = defaultdict(int)
     ans = 0
     left = 0
-    
+
     def window_lenght(r: int, l: int) -> int:
         return right - left + 1
-    
-    for right,val in enumerate(s):
+
+    for right, val in enumerate(s):
         count[val] += 1
         max_freq = max(count.values())
         while (window_lenght(left, right) - max_freq) > k:
             count[s[left]] -= 1
             left += 1
         ans = max(ans, window_lenght(left, right))
-    
+
     return ans
 
 

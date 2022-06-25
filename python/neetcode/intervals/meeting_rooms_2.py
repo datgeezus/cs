@@ -11,17 +11,18 @@ return the max number of rooms found over time
 
 """
 
+
 def min_meeting_rooms(intervals: list[list[int]]) -> int:
     # Sort by start
     start = sorted([i[0] for i in intervals])
     end = sorted([i[1] for i in intervals])
-    
+
     n_rooms = 0
     count = 0
     s = 0
     e = 0
     n_intervals = len(intervals)
-    
+
     while s < n_intervals:
         if start[s] < end[e]:
             s += 1
@@ -30,10 +31,10 @@ def min_meeting_rooms(intervals: list[list[int]]) -> int:
             e += 1
             count -= 1
         n_rooms = max(n_rooms, count)
-    
+
     return n_rooms
-    
+
 
 if __name__ == "__main__":
-    assert min_meeting_rooms([[0,30],[5,10],[15,20]]) == 2
-    assert min_meeting_rooms([[2,7]]) == 1
+    assert min_meeting_rooms([[0, 30], [5, 10], [15, 20]]) == 2
+    assert min_meeting_rooms([[2, 7]]) == 1

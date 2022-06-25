@@ -4,6 +4,7 @@ Given an integer array nums of unique elements, return all possible subsets (the
 The solution set must not contain duplicate subsets. Return the solution in any order.
 """
 
+
 def subsets(nums: list[int]) -> list[list[int]]:
     ans = []
     subset = []
@@ -27,5 +28,5 @@ def subsets(nums: list[int]) -> list[list[int]]:
 
 if __name__ == "__main__":
     assert len(subsets([0])) == 2
-    assert len(subsets([1,2,3])) == 8
-    print(subsets([1,2,3]))
+    assert len(subsets([1, 2, 3])) == 8
+    print(subsets([1, 2, 3]))

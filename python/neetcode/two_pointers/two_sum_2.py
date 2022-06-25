@@ -5,22 +5,24 @@
 # The tests are generated such that there is exactly one solution. You may not use the same element twice.
 # Your solution must use only constant extra space.
 
+
 def two_sum(numbers: list[int], target: int) -> list[int]:
     l = 0
     r = len(numbers) - 1
 
     while l < r:
         current_sum = numbers[l] + numbers[r]
-        
+
         if current_sum > target:
             r -= 1
         elif current_sum < target:
             l += 1
         else:
-            return [l,r]
+            return [l, r]
     return []
 
+
 if __name__ == "__main__":
-    assert two_sum([2,7,11,15], 9) == [0,1]
-    assert two_sum([2,3,4], 6) == [0,2]
-    assert two_sum([-1,0], -1) == [0,1]
+    assert two_sum([2, 7, 11, 15], 9) == [0, 1]
+    assert two_sum([2, 3, 4], 6) == [0, 2]
+    assert two_sum([-1, 0], -1) == [0, 1]

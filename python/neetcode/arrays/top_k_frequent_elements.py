@@ -37,15 +37,15 @@ from collections import defaultdict
 def top_k_frequent(nums: list[int], k: int) -> list[int]:
     count = defaultdict(int)
     freq = [[] for i in range(len(nums) + 1)]
-    
+
     for n in nums:
         count[n] += 1
-        
-    for n,c in count.items():
+
+    for n, c in count.items():
         freq[c].append(n)
-        
+
     ans = []
-    for i in range(len(freq) -1, 0, -1):
+    for i in range(len(freq) - 1, 0, -1):
         for n in freq[i]:
             ans.append(n)
             if len(ans) == k:
@@ -53,5 +53,5 @@ def top_k_frequent(nums: list[int], k: int) -> list[int]:
 
 
 if __name__ == "__main__":
-    assert top_k_frequent([1,1,1,2,2,3], 2) == [1,2]
+    assert top_k_frequent([1, 1, 1, 2, 2, 3], 2) == [1, 2]
     assert top_k_frequent([1], 1) == [1]

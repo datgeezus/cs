@@ -1,4 +1,4 @@
-'''
+"""
 Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right, level by level from leaf to root).
 
 For example:
@@ -15,7 +15,7 @@ return its bottom-up level order traversal as:
   [3]
 ]
 
-'''
+"""
 
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -28,8 +28,10 @@ from collections import deque
 from typing import List
 from data_structures.btree import BTree, BTreeNode
 
+
 def bfs(root: BTreeNode) -> List[List[int]]:
-    if root is None: return []
+    if root is None:
+        return []
     levels = []
     q = deque()
     q.append(root)
@@ -46,8 +48,10 @@ def bfs(root: BTreeNode) -> List[List[int]]:
         levels.append(this_level)
     return levels
 
+
 def bfs_bootom_up(root: BTreeNode) -> List[List[int]]:
-    if root is None: return []
+    if root is None:
+        return []
     levels = deque()
     q = deque()
     q.append(root)
@@ -64,6 +68,7 @@ def bfs_bootom_up(root: BTreeNode) -> List[List[int]]:
         levels.appendleft(this_level)
     return list(levels)
 
-if __name__ == '__main__':
-    print(bfs(BTree.from_list([3,9,20,None,None,15,7]).root))
-    print(bfs_bootom_up(BTree.from_list([3,9,20,None,None,15,7]).root))
+
+if __name__ == "__main__":
+    print(bfs(BTree.from_list([3, 9, 20, None, None, 15, 7]).root))
+    print(bfs_bootom_up(BTree.from_list([3, 9, 20, None, None, 15, 7]).root))

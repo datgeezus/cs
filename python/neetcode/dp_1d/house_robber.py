@@ -13,12 +13,13 @@ DP: if i is the current house, we pick the max amount between
 1 house back and the current + 2 houses back
 """
 
+
 def rob(nums: list[int]) -> int:
     n = len(nums)
     if n == 0:
         return 0
-    dp = [ 0 for _ in nums]
-    for house,money in enumerate(nums):
+    dp = [0 for _ in nums]
+    for house, money in enumerate(nums):
         if house == 0:
             dp[0] = money
             continue
@@ -30,5 +31,5 @@ def rob(nums: list[int]) -> int:
 
 
 if __name__ == "__main__":
-    assert rob([1,2,3,1]) == 4
-    assert rob([2,7,9,3,1]) == 12
+    assert rob([1, 2, 3, 1]) == 4
+    assert rob([2, 7, 9, 3, 1]) == 12

@@ -17,16 +17,19 @@ class StrategyData:
 @dataclass
 class TreeNode:
     val: int
-    left: 'TreeNode' = None
-    right: 'TreeNode' = None
+    left: "TreeNode" = None
+    right: "TreeNode" = None
 
 
 def get_diameter(root: Optional[TreeNode]) -> int:
-
     def strategy(left: int, right: int, data: StrategyData):
         data.diameter = max(left + right, data.diameter)
 
-    def dfs(root: Optional[TreeNode], strategy: Callable[[int, int, StrategyData], None], data: StrategyData) -> int:
+    def dfs(
+        root: Optional[TreeNode],
+        strategy: Callable[[int, int, StrategyData], None],
+        data: StrategyData,
+    ) -> int:
         if not root:
             return 0
 

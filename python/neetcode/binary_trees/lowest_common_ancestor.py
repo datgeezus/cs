@@ -17,11 +17,13 @@ from typing import Optional
 @dataclass
 class TreeNode:
     val: int
-    left: Optional['TreeNode'] = None
-    right: Optional['TreeNode'] = None
-    
+    left: Optional["TreeNode"] = None
+    right: Optional["TreeNode"] = None
 
-def lca(root: Optional[TreeNode], p: Optional[TreeNode], q: Optional[TreeNode]) -> Optional[TreeNode]:
+
+def lca(
+    root: Optional[TreeNode], p: Optional[TreeNode], q: Optional[TreeNode]
+) -> Optional[TreeNode]:
     curr = root
     while curr:
         if p.val > curr.val and q.val > curr.val:
@@ -30,7 +32,7 @@ def lca(root: Optional[TreeNode], p: Optional[TreeNode], q: Optional[TreeNode]) 
             curr = curr.left
         else:
             return curr
-        
+
 
 if __name__ == "__main__":
     n3 = TreeNode(3)

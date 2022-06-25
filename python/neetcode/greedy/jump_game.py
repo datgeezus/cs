@@ -31,14 +31,15 @@ new goal is at index 3
 
 """
 
+
 def can_jump(nums: list[int]) -> bool:
     goal = len(nums) - 1
-    for i in range(len(nums) -1, -1, -1):
+    for i in range(len(nums) - 1, -1, -1):
         if i + nums[i] >= goal:
             goal = i
     return goal == 0
 
 
 if __name__ == "__main__":
-    assert can_jump([2,3,1,1,4])
-    assert can_jump([3,2,1,0,4]) is False
+    assert can_jump([2, 3, 1, 1, 4])
+    assert can_jump([3, 2, 1, 0, 4]) is False

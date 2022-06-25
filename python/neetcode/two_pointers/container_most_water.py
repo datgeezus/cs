@@ -14,6 +14,7 @@ Use 2 pointers
 
 """
 
+
 def max_area(height: list[int]) -> int:
     ans = 0
     l = 0
@@ -26,10 +27,10 @@ def max_area(height: list[int]) -> int:
             l += 1
         else:
             r -= 1
-        
+
     return ans
 
 
 if __name__ == "__main__":
-    assert max_area([1,8,6,2,5,4,8,3,7]) == 49
-    assert max_area([1,1]) == 1
+    assert max_area([1, 8, 6, 2, 5, 4, 8, 3, 7]) == 49
+    assert max_area([1, 1]) == 1

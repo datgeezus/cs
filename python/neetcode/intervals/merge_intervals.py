@@ -9,20 +9,21 @@ Merge current with previous (starting from interval[1])
 
 """
 
+
 def merge(intervals: list[list[int]]) -> list[list[int]]:
     # sort by start of the intervals
-    intervals.sort(key = lambda i: i[0])
+    intervals.sort(key=lambda i: i[0])
     ans = [intervals[0]]
-    
-    for start,end in intervals[1:]:
+
+    for start, end in intervals[1:]:
         last_end = ans[-1][1]
-        if start <= last_end: # overlap
+        if start <= last_end:  # overlap
             ans[-1][1] = max(last_end, end)
         else:
-            ans.append([start,end])
+            ans.append([start, end])
     return ans
 
 
 if __name__ == "__main__":
-    assert merge([[1,3],[2,6],[8,10],[15,18]]) == [[1,6],[8,10],[15,18]]
-    assert merge([[1,4],[4,5]]) == [[1,5]]
+    assert merge([[1, 3], [2, 6], [8, 10], [15, 18]]) == [[1, 6], [8, 10], [15, 18]]
+    assert merge([[1, 4], [4, 5]]) == [[1, 5]]

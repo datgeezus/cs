@@ -12,10 +12,7 @@ from collections import deque
 
 def is_valid_parentheses(s: str) -> bool:
     stack = deque()
-    close_to_open = {
-        ")": "(",
-        "}": "{",
-        "]": "["}
+    close_to_open = {")": "(", "}": "{", "]": "["}
 
     for c in s:
         if c in close_to_open:

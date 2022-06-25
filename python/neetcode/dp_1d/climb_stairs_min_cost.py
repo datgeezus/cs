@@ -16,14 +16,14 @@ Bottom up: Traverse the array from the end, fill the DP table
 
 """
 
+
 def climb_stairs(cost: list[int]) -> int:
     cost.append(0)
-    for i in range(len(cost) -3, -1, -1):
-        cost[i] += min(cost[i+1], cost[i+2])
+    for i in range(len(cost) - 3, -1, -1):
+        cost[i] += min(cost[i + 1], cost[i + 2])
     return min(cost[0], cost[1])
 
 
-
 if __name__ == "__main__":
-    assert climb_stairs([10,15,20]) == 15
-    assert climb_stairs([1,100,1,1,1,100,1,1,100,1]) == 6
+    assert climb_stairs([10, 15, 20]) == 15
+    assert climb_stairs([1, 100, 1, 1, 1, 100, 1, 1, 100, 1]) == 6

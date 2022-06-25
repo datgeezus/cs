@@ -24,6 +24,7 @@ The input prerequisites is a graph represented by a list of edges, not adjacency
 You may assume that there are no duplicate edges in the input prerequisites.
 """
 
+
 class Solution:
     def canFinish(self, numCourses, prerequisites):
         """
@@ -37,17 +38,16 @@ class Solution:
         visited.add(prerequisites[0][1])
         stack.append(prerequisites[0][1])
 
-        while(len(stack) != 0):
+        while len(stack) != 0:
             curr = stack.pop()
             next = self.searchNode(curr, prerequisites)
             if None == next:
                 break
-            if(next not in visited):
+            if next not in visited:
                 visited.add(next)
                 stack.append(next)
             elif next in stack:
                 return False
-
 
         return True
 
@@ -60,5 +60,5 @@ class Solution:
 
 
 if __name__ == "__main__":
-    print(Solution().canFinish(2, [[1,0]]))
-    print(Solution().canFinish(2, [[1,0],[0, 1]]))
+    print(Solution().canFinish(2, [[1, 0]]))
+    print(Solution().canFinish(2, [[1, 0], [0, 1]]))

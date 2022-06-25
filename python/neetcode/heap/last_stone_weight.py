@@ -18,17 +18,17 @@ def last_stone_weight(stones: list[int]) -> int:
     # Use a min heap with negative values to represent a max heap
     stones = [-s for s in stones]
     heapify(stones)
-    
+
     while len(stones) > 1:
         first = heappop(stones)
         second = heappop(stones)
         if second > first:
             diff = first - second
             heappush(stones, diff)
-    
+
     return abs(stones[0])
 
 
 if __name__ == "__main__":
-    assert last_stone_weight([2,7,4,1,8,1]) == 1
+    assert last_stone_weight([2, 7, 4, 1, 8, 1]) == 1
     assert last_stone_weight([1]) == 1

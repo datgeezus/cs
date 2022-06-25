@@ -14,18 +14,20 @@ from typing import Optional
 @dataclass
 class TreeNode:
     val: int
-    left: Optional['TreeNode'] = None
-    right: Optional['TreeNode'] = None
-    
+    left: Optional["TreeNode"] = None
+    right: Optional["TreeNode"] = None
+
+
 @dataclass
 class NodeData:
     n_nodes: int
+
 
 def good_nodes(root: Optional[TreeNode]) -> int:
     if not root:
         return 0
     data = NodeData(0)
-    
+
     def dfs(root: Optional[TreeNode], target: int, node_data: NodeData):
         if not root:
             return
@@ -34,7 +36,6 @@ def good_nodes(root: Optional[TreeNode]) -> int:
         new_max = max(target, root.val)
         dfs(root.left, new_max, node_data)
         dfs(root.right, new_max, node_data)
-    
 
     dfs(root, root.val, data)
     return data.n_nodes
@@ -48,7 +49,7 @@ if __name__ == "__main__":
     n1a = TreeNode(1, n3b)
     n3a = TreeNode(3, n1a, n4)
     assert good_nodes(n3a) == 4
-    
+
     n2 = TreeNode(2)
     n4 = TreeNode(4)
     n3b = TreeNode(3, n4, n2)

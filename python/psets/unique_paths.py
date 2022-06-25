@@ -12,6 +12,7 @@ How many possible unique paths are there?
 
 """
 
+
 def unique_paths(m, n):
     """
     :type m: int
@@ -26,9 +27,10 @@ def unique_paths(m, n):
             if i == 0 or j == 0:
                 grid[i][j] = 1
             else:
-                grid[i][j] = grid[i-1][j] + grid[i][j-1]
-                    
-    return grid[m-1][n-1]
+                grid[i][j] = grid[i - 1][j] + grid[i][j - 1]
+
+    return grid[m - 1][n - 1]
+
 
 if __name__ == "__main__":
     print(unique_paths(3, 2))

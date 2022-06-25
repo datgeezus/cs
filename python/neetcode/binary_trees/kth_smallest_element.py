@@ -10,19 +10,21 @@ In order traversal, return the kth
 from dataclasses import dataclass
 from typing import Callable, Optional
 
+
 @dataclass
 class TreeNode:
     val: int
-    left: Optional['TreeNode'] = None
-    right: Optional['TreeNode'] = None
+    left: Optional["TreeNode"] = None
+    right: Optional["TreeNode"] = None
+
 
 @dataclass
 class NodeData:
     order: list[int]
-    visit: Callable[[TreeNode, 'NodeData'], None]
+    visit: Callable[[TreeNode, "NodeData"], None]
+
 
 def k_smallest(root: Optional[TreeNode], k: int) -> int:
-
     def visit(node: TreeNode, data: NodeData) -> None:
         data.order.append(node.val)
 
@@ -36,7 +38,7 @@ def k_smallest(root: Optional[TreeNode], k: int) -> int:
     ans = []
     ndata = NodeData(ans, visit)
     inorder(root, ndata)
-    return ans[k-1]
+    return ans[k - 1]
 
 
 if __name__ == "__main__":

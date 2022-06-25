@@ -17,7 +17,7 @@ def longest_substring_lenght(s: str) -> int:
     longest = 0
     left = 0
     right = 0
-    
+
     while right < n:
         if s[right] not in used:
             used.add(s[right])
@@ -27,7 +27,7 @@ def longest_substring_lenght(s: str) -> int:
             used.remove(s[left])
             left += 1
     return longest
-        
+
 
 if __name__ == "__main__":
     assert longest_substring_lenght("abcabcbb") == 3

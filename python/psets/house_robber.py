@@ -9,17 +9,21 @@ from typing import List
 
 def rob(nums: List[int]) -> int:
     n = len(nums)
-    if n == 0: return 0
-    if n == 1: return nums[0]
-    if n < 3: return max(nums[0], nums[1])
+    if n == 0:
+        return 0
+    if n == 1:
+        return nums[0]
+    if n < 3:
+        return max(nums[0], nums[1])
     ans = [0 for _ in nums]
     ans[0] = nums[0]
     ans[1] = max(nums[0], nums[1])
 
-    for i in range(2,n):
-        ans[i] = max(nums[i]+ans[i-2], ans[i-1])
+    for i in range(2, n):
+        ans[i] = max(nums[i] + ans[i - 2], ans[i - 1])
     return max(ans)
 
+
 if __name__ == "__main__":
-    print(rob([1,2,3,1]))  # Expected 4
-    print(rob([2,7,9,3,1]))# Expected 12
+    print(rob([1, 2, 3, 1]))  # Expected 4
+    print(rob([2, 7, 9, 3, 1]))  # Expected 12

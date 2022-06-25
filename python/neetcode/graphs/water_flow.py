@@ -28,10 +28,14 @@ def water_flow(heights: list[list[int]]) -> list[list[int]]:
     atl = set()
 
     def is_valid(r: int, c: int, visited: set[int], prev_h: int) -> bool:
-        return (r, c) not in visited \
-            and r >= 0 and r < N_ROWS \
-            and c >= 0 and c < N_COLS \
+        return (
+            (r, c) not in visited
+            and r >= 0
+            and r < N_ROWS
+            and c >= 0
+            and c < N_COLS
             and prev_h <= heights[r][c]
+        )
 
     def dfs(r: int, c: int, visited: set[int], prev_h: int) -> None:
         if not is_valid(r, c, visited, prev_h):
@@ -61,8 +65,13 @@ def water_flow(heights: list[list[int]]) -> list[list[int]]:
 
 
 if __name__ == "__main__":
-    heights = [[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [
-        2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]]
+    heights = [
+        [1, 2, 2, 3, 5],
+        [3, 2, 3, 4, 4],
+        [2, 4, 5, 3, 1],
+        [6, 7, 1, 4, 5],
+        [5, 1, 1, 2, 4],
+    ]
     flow = [[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]]
     assert water_flow(heights) == flow
 

@@ -14,22 +14,22 @@ from typing import Optional
 @dataclass
 class ListNode:
     val: int
-    next: Optional['ListNode'] = None
-    
+    next: Optional["ListNode"] = None
+
+
 def reverse(head: Optional[ListNode]) -> Optional[ListNode]:
     if not head:
         return head
     prev = None
     curr = head
-    
+
     while curr:
         tnext = curr.next
         curr.next = prev
         prev = curr
         curr = tnext
-    
+
     return prev
-    
 
 
 if __name__ == "__main__":

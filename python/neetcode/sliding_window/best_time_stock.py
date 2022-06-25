@@ -5,9 +5,10 @@ different day in the future to sell that stock.
 Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
 """
 
+
 def max_profit(prices: list[int]) -> int:
-    l = 0 # buy
-    r = 1 # sell
+    l = 0  # buy
+    r = 1  # sell
     max_profit = 0
     n_prices = len(prices)
 
@@ -22,6 +23,7 @@ def max_profit(prices: list[int]) -> int:
 
     return max_profit
 
+
 if __name__ == "__main__":
-    assert max_profit([7,1,5,3,6,4]) == 5
-    assert max_profit([7,6,4,3,1]) == 0
+    assert max_profit([7, 1, 5, 3, 6, 4]) == 5
+    assert max_profit([7, 6, 4, 3, 1]) == 0

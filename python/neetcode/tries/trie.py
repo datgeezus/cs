@@ -14,13 +14,14 @@ boolean startsWith(String prefix) Returns true if there is a previously inserted
 from collections import defaultdict
 from dataclasses import dataclass
 
+
 @dataclass
 class TrieNode:
     children = defaultdict()
     end: bool = False
 
-class Trie:
 
+class Trie:
     def __init__(self):
         self.root = TrieNode()
 
@@ -40,7 +41,6 @@ class Trie:
             curr = curr.children[c]
         return curr.end
 
-
     def starts_with(self, prefix: str) -> bool:
         curr = self.root
         for c in prefix:
@@ -48,7 +48,7 @@ class Trie:
                 return False
             curr = curr.children[c]
         return True
-    
+
 
 if __name__ == "__main__":
     trie = Trie()

@@ -32,7 +32,7 @@ class MinStack:
 
     def get_min(self) -> int:
         return self.mins[-1]
-    
+
 
 if __name__ == "__main__":
     min_stack = MinStack()

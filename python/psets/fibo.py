@@ -10,11 +10,14 @@ fib(n): 0, 1, 1, 2, 3, 5, 8, 13, 21
 def fib(n, memo=None):
     memo = {} if memo is None else memo
     # base cases
-    if n == 0: return 0
-    if n == 1 or n == 2: return 1
-    if n in memo: return memo[n]
+    if n == 0:
+        return 0
+    if n == 1 or n == 2:
+        return 1
+    if n in memo:
+        return memo[n]
 
-    memo[n] = fib(n-1, memo) + fib(n-2, memo)
+    memo[n] = fib(n - 1, memo) + fib(n - 2, memo)
     return memo[n]
 
 
@@ -23,15 +26,18 @@ def fib(n, memo=None):
 # space: O(n)
 def fib_tab(n):
     # base cases
-    if n == 0: return 0
-    if n == 1 or n == 2: return 1
+    if n == 0:
+        return 0
+    if n == 1 or n == 2:
+        return 1
 
-    table = (n+1) * [0]
+    table = (n + 1) * [0]
     table[1] = 1
     table[2] = 1
-    for i in range(3,n+1):
-        table[i] = table[i-2] + table[i-1]
+    for i in range(3, n + 1):
+        table[i] = table[i - 2] + table[i - 1]
     return table[n]
+
 
 if __name__ == "__main__":
     print(fib(0))

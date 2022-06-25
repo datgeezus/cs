@@ -53,7 +53,14 @@ def permute(nums: list[int]) -> list[list[int]]:
 
 
 if __name__ == "__main__":
-    print(permute([1,2,3]))
-    assert permute([1,2,3]) == [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
-    assert permute([0,1]) == [[0,1],[1,0]]
+    print(permute([1, 2, 3]))
+    assert permute([1, 2, 3]) == [
+        [1, 2, 3],
+        [1, 3, 2],
+        [2, 1, 3],
+        [2, 3, 1],
+        [3, 1, 2],
+        [3, 2, 1],
+    ]
+    assert permute([0, 1]) == [[0, 1], [1, 0]]
     assert permute([1]) == [[1]]

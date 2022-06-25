@@ -44,12 +44,16 @@ def least_interval(tasks: list[str], n: int) -> int:
         if max_heap:
             cnt = 1 + heapq.heappop(max_heap)
             if cnt:
-                q.append((cnt, time+n))
+                q.append((cnt, time + n))
         if q and q[0][1] == time:
             heapq.heappush(max_heap, q.popleft()[0])
     return time
 
+
 if __name__ == "__main__":
-    assert least_interval(["A","A","A","B","B","B"], 2) == 8
-    assert least_interval(["A","A","A","B","B","B"], 0) == 6
-    assert least_interval(["A","A","A","A","A","A","B","C","D","E","F","G"], 2) == 16
+    assert least_interval(["A", "A", "A", "B", "B", "B"], 2) == 8
+    assert least_interval(["A", "A", "A", "B", "B", "B"], 0) == 6
+    assert (
+        least_interval(["A", "A", "A", "A", "A", "A", "B", "C", "D", "E", "F", "G"], 2)
+        == 16
+    )
