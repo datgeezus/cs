@@ -15,24 +15,24 @@ class TreeNode:
     val: int
     left: Optional['TreeNode'] = None
     right: Optional['TreeNode'] = None
-    
+
 @dataclass
 class NodeData:
     order: list[int]
     visit: Callable[[TreeNode, 'NodeData'], None]
 
 def k_smallest(root: Optional[TreeNode], k: int) -> int:
-    
+
     def visit(node: TreeNode, data: NodeData) -> None:
         data.order.append(node.val)
-            
+
     def inorder(root: Optional[TreeNode], node_data: NodeData) -> None:
         if not root:
             return
         inorder(root.left, node_data)
         node_data.visit(root, node_data)
         inorder(root.right, node_data)
-        
+
     ans = []
     ndata = NodeData(ans, visit)
     inorder(root, ndata)
@@ -45,7 +45,7 @@ if __name__ == "__main__":
     n4 = TreeNode(4)
     n3 = TreeNode(3, n1, n4)
     assert k_smallest(n3, 1) == 1
-    
+
     n1 = TreeNode(1)
     n2 = TreeNode(2, left=n1)
     n4 = TreeNode(4)
