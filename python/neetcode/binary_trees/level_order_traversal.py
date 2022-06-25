@@ -21,12 +21,13 @@ from dataclasses import dataclass
 from typing import Optional
 from collections import deque
 
+
 @dataclass
 class TreeNode:
     val: int
-    left: Optional['TreeNode'] = None
-    right: Optional['TreeNode'] = None
-    
+    left: Optional["TreeNode"] = None
+    right: Optional["TreeNode"] = None
+
 
 def level_order_traversal(root: Optional[TreeNode]) -> list[list[int]]:
     if not root:
@@ -47,7 +48,6 @@ def level_order_traversal(root: Optional[TreeNode]) -> list[list[int]]:
             if node.right:
                 q.appendleft(node.right)
         levels.append(this_level)
-    
 
     return levels
 
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     n9 = TreeNode(9)
     n3 = TreeNode(3, n9, n20)
     print(level_order_traversal(n3))
-    
+
     assert level_order_traversal(TreeNode(1)) == [[1]]
-    
-    assert level_order_traversal(None) == []
+
+    assert not level_order_traversal(None)
