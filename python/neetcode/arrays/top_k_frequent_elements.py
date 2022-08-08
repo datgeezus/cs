@@ -36,7 +36,7 @@ from collections import defaultdict
 
 def top_k_frequent(nums: list[int], k: int) -> list[int]:
     count = defaultdict(int)
-    freq = [[] for i in range(len(nums) + 1)]
+    freq = [[] for _ in range(len(nums) + 1)]
 
     for n in nums:
         count[n] += 1
