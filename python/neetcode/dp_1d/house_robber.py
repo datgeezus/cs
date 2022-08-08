@@ -22,11 +22,10 @@ def rob(nums: list[int]) -> int:
     for house, money in enumerate(nums):
         if house == 0:
             dp[0] = money
-            continue
-        if house == 1:
+        elif house == 1:
             dp[1] = max(dp[0], money)
-            continue
-        dp[house] = max(dp[house - 1], dp[house - 2] + money)
+        else:
+            dp[house] = max(dp[house - 1], dp[house - 2] + money)
     return dp[-1]
 
 
