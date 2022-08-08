@@ -13,9 +13,8 @@ def climb_stairs(n: int) -> int:
     for i, n in enumerate(range(n)):
         if i == 0 or i == 1:
             dp[i] = i + 1
-            continue
-        dp[i] = dp[i - 1] + dp[i - 2]
-    print(dp)
+        else:
+            dp[i] = dp[i - 1] + dp[i - 2]
     return dp[-1]
 
 
