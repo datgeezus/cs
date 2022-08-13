@@ -26,7 +26,7 @@ def num_islands(grid: list[list[str]]) -> int:
             and (row, col) not in visited
         )
 
-    def bfs(row: int, col: int):
+    def bfs(row: int, col: int) -> None:
         q = deque([(row, col)])
         visited.add((row, col))
         directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
