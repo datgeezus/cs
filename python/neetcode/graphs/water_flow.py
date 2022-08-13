@@ -27,7 +27,7 @@ def water_flow(heights: list[list[int]]) -> list[list[int]]:
     pac = set()
     atl = set()
 
-    def is_valid(r: int, c: int, visited: set[int], prev_h: int) -> bool:
+    def is_valid(r: int, c: int, visited: set[tuple[int,int]], prev_h: int) -> bool:
         return (
             (r, c) not in visited
             and r >= 0
@@ -37,7 +37,7 @@ def water_flow(heights: list[list[int]]) -> list[list[int]]:
             and prev_h <= heights[r][c]
         )
 
-    def dfs(r: int, c: int, visited: set[int], prev_h: int) -> None:
+    def dfs(r: int, c: int, visited: set[tuple[int, int]], prev_h: int) -> None:
         if not is_valid(r, c, visited, prev_h):
             return
 
