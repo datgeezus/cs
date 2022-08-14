@@ -14,10 +14,7 @@ def is_anagram(s: str, t: str) -> bool:
     s_mem = Counter(s)
     t_mem = Counter(t)
 
-    for char, s_count in s_mem.items():
-        if s_count != t_mem.get(char, 0):
-            return False
-    return True
+    return s_mem == t_mem
 
 
 if __name__ == "__main__":
