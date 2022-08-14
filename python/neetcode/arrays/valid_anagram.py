@@ -1,17 +1,18 @@
-# Given two strings s and t, return true if t is an anagram of s, and false otherwise.
-# An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase,
-# typically using all the original letters exactly once
+"""
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase,
+typically using all the original letters exactly once
+"""
+
+from collections import Counter
 
 
 def is_anagram(s: str, t: str) -> bool:
     if len(s) != len(t):
         return False
 
-    s_mem = {}
-    t_mem = {}
-    for i, _ in enumerate(s):
-        s_mem[s[i]] = 1 + s_mem.get(s[i], 0)
-        t_mem[t[i]] = 1 + t_mem.get(t[i], 0)
+    s_mem = Counter(s)
+    t_mem = Counter(t)
 
     for char, s_count in s_mem.items():
         if s_count != t_mem.get(char, 0):
