@@ -56,11 +56,13 @@ def water_flow(heights: list[list[int]]) -> list[list[int]]:
         dfs(r, 0, pac, heights[r][0])
         dfs(r, N_COLS - 1, atl, heights[r][N_COLS - 1])
 
-    ans = []
-    for r in range(N_ROWS):
-        for c in range(N_COLS):
-            if (r, c) in pac and (r, c) in atl:
-                ans.append([r, c])
+    ans = [
+        [r, c] 
+        for r in range(N_ROWS)
+        for c in range(N_COLS) 
+        if (r, c) in pac and (r, c) in atl
+    ]
+
     return ans
 
 
