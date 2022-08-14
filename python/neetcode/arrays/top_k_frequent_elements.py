@@ -31,27 +31,29 @@ freq = [[], [3], [2], [], [1]]
 
 """
 
-from collections import defaultdict
+from collections import Counter
 
 
 def top_k_frequent(nums: list[int], k: int) -> list[int]:
-    count = defaultdict(int)
+    # count the frequency of numbers
+    count = Counter(nums)
+
+    # List of frequency buckets, index represent frequency, buckets is the list of values
     freq = [[] for _ in range(len(nums) + 1)]
-
-    for n in nums:
-        count[n] += 1
-
     for n, c in count.items():
         freq[c].append(n)
 
-    ans = []
-    for i in range(len(freq) - 1, 0, -1):
-        for n in freq[i]:
-            ans.append(n)
-            if len(ans) == k:
-                return ans
+    ans = [
+        n 
+        for i in range(len(freq) - 1, 0, -1)
+        for n in freq[i]
+    ]
+
+    return ans[:k] if len(ans) >= k else []
 
 
 if __name__ == "__main__":
-    assert top_k_frequent([1, 1, 1, 2, 2, 3], 2) == [1, 2]
+    assert top_k_frequent([1, 1, 1, 1, 2, 2, 3], 2) == [1, 2]
+    assert top_k_frequent([1, 1, 2, 2, 3], 2) == [1, 2]
+    assert top_k_frequent([1, 1, 2, 2, 3], 1) == [1]
     assert top_k_frequent([1], 1) == [1]
