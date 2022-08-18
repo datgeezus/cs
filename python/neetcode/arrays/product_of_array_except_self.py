@@ -70,7 +70,7 @@ def product_except_self(nums: list[int]) -> list[int]:
     prev = 1
     # traverse array in reverse, including the index
     # index: -last_index ... 0, abs(i) to get the real value
-    for i,n in enumerate(nums[::-1], -(last_index)):
+    for i,n in enumerate(nums[::-1], start=-(last_index)):
         ans[abs(i)] *= prev
         prev *= n
 
