@@ -38,10 +38,10 @@ prefix = [1, 2, 6, 24]
 
 postfix[i] = nums[-i] * nums[i]
 
-postfix[0] = nums[4] = 1 * nums[3] = 4 => 4
-postfix[1] = nums[3] = 4 * nums[2] = 3 => 12
-postfix[2] = nums[2] = 2 * nums[1] = 2 => 4
-postfix[3] = nums[1] = 1 * nums[0] = 1 => 1
+postfix[3] = nums[4] = 1 * nums[3] = 4 => 4
+postfix[2] = nums[3] = 4 * nums[2] = 3 => 12
+postfix[1] = nums[2] = 3 * nums[1] = 2 => 12
+postfix[0] = nums[1] = 2 * nums[0] = 1 => 4
 
 postfix = [24, 24, 12,4]
 
@@ -68,6 +68,8 @@ def product_except_self(nums: list[int]) -> list[int]:
 
     last_index = len(nums)-1
     prev = 1
+    # traverse array in reverse, including the index
+    # index: -last_index ... 0, abs(i) to get the real value
     for i,n in enumerate(nums[::-1], -(last_index)):
         ans[abs(i)] *= prev
         prev *= n
