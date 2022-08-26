@@ -6,7 +6,7 @@ The length of a path between two nodes is represented by the number of edges bet
 """
 
 from dataclasses import dataclass
-from typing import Optional, Callable
+from typing import Callable
 
 
 @dataclass
@@ -15,18 +15,18 @@ class StrategyData:
 
 
 @dataclass
-class TreeNode:
+class Node:
     val: int
-    left: "TreeNode" = None
-    right: "TreeNode" = None
+    left: 'Node | None' = None
+    right: 'Node | None' = None
 
 
-def get_diameter(root: Optional[TreeNode]) -> int:
+def get_diameter(root: Node | None) -> int:
     def strategy(left: int, right: int, data: StrategyData):
         data.diameter = max(left + right, data.diameter)
 
     def dfs(
-        root: Optional[TreeNode],
+        root: Node | None,
         strategy: Callable[[int, int, StrategyData], None],
         data: StrategyData,
     ) -> int:
@@ -45,14 +45,14 @@ def get_diameter(root: Optional[TreeNode]) -> int:
 
 
 if __name__ == "__main__":
-    n5 = TreeNode(5)
-    n4 = TreeNode(4)
-    n2 = TreeNode(2, n4, n5)
-    n3 = TreeNode(3)
-    n1 = TreeNode(1, n2, n3)
+    n5 = Node(5)
+    n4 = Node(4)
+    n2 = Node(2, n4, n5)
+    n3 = Node(3)
+    n1 = Node(1, n2, n3)
     assert get_diameter(n1) == 3
 
-    n = TreeNode(1, TreeNode(2))
+    n = Node(1, Node(2))
     assert get_diameter(n) == 1
 
     print("All tests passed")

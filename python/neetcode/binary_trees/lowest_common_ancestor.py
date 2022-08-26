@@ -15,12 +15,14 @@ from dataclasses import dataclass
 @dataclass
 class TreeNode:
     val: int
-    left: "TreeNode" | None = None
-    right: "TreeNode" | None = None
+    left: 'TreeNode | None' = None
+    right: 'TreeNode | None' = None
 
 
 def lca(
     root: TreeNode | None, p: TreeNode | None, q: TreeNode | None) -> TreeNode | None:
+    if not p or not q:
+        return None
     curr = root
     while curr:
         if p.val > curr.val and q.val > curr.val:
@@ -41,4 +43,6 @@ if __name__ == "__main__":
     n9 = TreeNode(9)
     n8 = TreeNode(8, n7, n9)
     n6 = TreeNode(6, n2, n8)
-    assert lca(n6, n2, n8)
+    ans = lca(n6, n2, n8)
+    assert ans
+    print(f"LCA:{ans.val}")
