@@ -11,19 +11,16 @@ Find the split in node
 """
 
 from dataclasses import dataclass
-from typing import Optional
-
 
 @dataclass
 class TreeNode:
     val: int
-    left: Optional["TreeNode"] = None
-    right: Optional["TreeNode"] = None
+    left: "TreeNode" | None = None
+    right: "TreeNode" | None = None
 
 
 def lca(
-    root: Optional[TreeNode], p: Optional[TreeNode], q: Optional[TreeNode]
-) -> Optional[TreeNode]:
+    root: TreeNode | None, p: TreeNode | None, q: TreeNode | None) -> TreeNode | None:
     curr = root
     while curr:
         if p.val > curr.val and q.val > curr.val:
