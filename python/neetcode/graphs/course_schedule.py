@@ -7,6 +7,21 @@ course bi first if you want to take course ai.
 For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
 Return true if you can finish all courses. Otherwise, return false.
 
+Example 1:
+
+Input: numCourses = 2, prerequisites = [[1,0]]
+Output: true
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0. So it is possible.
+
+Example 2:
+
+Input: numCourses = 2, prerequisites = [[1,0],[0,1]]
+Output: false
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0, and to take course 0 you should also
+have finished course 1. So it is impossible.
+
 
 # Solution
 Build an adjacency list, find cycles
@@ -20,15 +35,17 @@ def can_finish(num_courses: int, prerequisites: list[list[int]]) -> bool:
     for course, prerequisite in prerequisites:
         pre[course].append(prerequisite)
 
+    print(pre)
     visited = set()
 
-    def dfs(course: int):
+    def dfs(course: int) -> bool:
         if course in visited:
             return False
         if pre[course] == []:
             return True
 
         visited.add(course)
+        print(f"curr:{course}")
         for prerequisite in pre[course]:
             if not dfs(prerequisite):
                 return False
@@ -41,7 +58,6 @@ def can_finish(num_courses: int, prerequisites: list[list[int]]) -> bool:
         if not dfs(course):
             return False
     return True
-
 
 if __name__ == "__main__":
     assert can_finish(2, [[1, 0]])
