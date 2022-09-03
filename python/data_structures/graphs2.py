@@ -85,7 +85,7 @@ def bfs(
     stack.append(v)
 
     while stack:
-        vertex = stack.pop()
+        vertex = stack.popleft()
 
         for neighbor in graph[vertex]:
             if neighbor not in visited:
