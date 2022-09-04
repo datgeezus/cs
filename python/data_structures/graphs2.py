@@ -81,15 +81,15 @@ def bfs(
         return
     visited.add(v)
 
-    stack = deque()
-    stack.append(v)
+    q = deque()
+    q.append(v)
 
-    while stack:
-        vertex = stack.popleft()
+    while q:
+        vertex = q.popleft()
 
         for neighbor in graph[vertex]:
             if neighbor not in visited:
-                stack.append(neighbor)
+                q.append(neighbor)
                 visited.add(neighbor)
 
         if cb is not None:
@@ -115,3 +115,5 @@ if __name__ == "__main__":
     dfs(graph, "a", cb, set())
     print("Iterative DFS")
     dfs_it(graph, "a", cb, set())
+    print("BFS")
+    bfs(graph, "a", cb, set())
