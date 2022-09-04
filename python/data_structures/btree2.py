@@ -9,10 +9,12 @@ class Node:
 
 
 def from_list(nodes_list: list[str]) -> Node | None:
-    # Create forest, assumen non empty values
+    # create forest, assumen non empty values
     forest = [Node(v) if v else None for v in nodes_list]
+
     n_nodes = len(nodes_list)
 
+    # connect children
     for i,node in enumerate(forest):
         if node is None:
             continue
