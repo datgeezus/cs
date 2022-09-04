@@ -30,14 +30,15 @@ def from_list(nodes_list: list[str]) -> Node | None:
 
     return forest[0]
 
-def bfs(root: Node | None, cb: Callable[[str], None]) -> None:
+def bfs(root: Node | None, cb: Callable[[str], None] | None = None) -> None:
     if not root:
         return
     q = deque[Node]()
     q.append(root)
     visited = set()
 
-    visit = lambda cb, v: cb(v) if cb
+
+    visit = lambda cb, v: cb(v) if cb else None
 
     while q:
         node = q.popleft()
@@ -64,6 +65,7 @@ if __name__ == "__main__":
 
     print("BFS")
     bfs(btree, strategy)
+    bfs(btree)
 
     # print("Level Order Traversal")
     # btree.level_order_traversal(btree.root, strategy)
