@@ -18,48 +18,47 @@ while there are elements in the queue:
 """
 
 from dataclasses import dataclass
-from typing import Optional
 from collections import deque
 
 
 @dataclass
-class TreeNode:
+class Node:
     val: int
-    left: Optional["TreeNode"] = None
-    right: Optional["TreeNode"] = None
+    left: 'Node | None' = None
+    right: 'Node | None' = None
 
 
-def level_order_traversal(root: Optional[TreeNode]) -> list[list[int]]:
+def level_order_traversal(root: Node | None) -> list[list[int]]:
     if not root:
         return []
 
     q = deque()
-    q.appendleft(root)
+    q.append(root)
     levels = []
 
     while q:
         this_level = []
         n = len(q)
         for _ in range(n):
-            node = q.pop()
+            node = q.popleft()
             this_level.append(node.val)
             if node.left:
-                q.appendleft(node.left)
+                q.append(node.left)
             if node.right:
-                q.appendleft(node.right)
+                q.append(node.right)
         levels.append(this_level)
 
     return levels
 
 
 if __name__ == "__main__":
-    n7 = TreeNode(7)
-    n15 = TreeNode(15)
-    n20 = TreeNode(20, n15, n7)
-    n9 = TreeNode(9)
-    n3 = TreeNode(3, n9, n20)
+    n7 = Node(7)
+    n15 = Node(15)
+    n20 = Node(20, n15, n7)
+    n9 = Node(9)
+    n3 = Node(3, n9, n20)
     print(level_order_traversal(n3))
 
-    assert level_order_traversal(TreeNode(1)) == [[1]]
+    assert level_order_traversal(Node(1)) == [[1]]
 
     assert not level_order_traversal(None)
