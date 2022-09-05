@@ -89,18 +89,16 @@ def post_order(root: Node | None, cb: Callable[[str], None]) -> None:
 def post_order_generator(root: Node | None) -> Generator:
     if not root:
         return
-    stack = deque[Node]()
+    stack = deque()
     stack.append(root)
-
-    visit = lambda cb, v: cb(v) if cb else None
 
     while stack:
         node = stack.pop()
-        if node.left:
-            stack.append(node.left)
+        if node is None:
+            continue
+        stack.append(node.left)
         yield node.value
-        if node.right:
-            stack.append(node.right)
+        stack.append(node.right)
 
 if __name__ == "__main__":
     """
