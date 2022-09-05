@@ -57,8 +57,12 @@ if __name__ == "__main__":
     n20 = Node(20, n15, n7)
     n9 = Node(9)
     n3 = Node(3, n9, n20)
-    print(level_order_traversal(n3))
+
 
     assert level_order_traversal(Node(1)) == [[1]]
+
+    ans = level_order_traversal(n3)
+    print(f"levels: {ans}")
+    assert len(ans) == 3
 
     assert not level_order_traversal(None)
