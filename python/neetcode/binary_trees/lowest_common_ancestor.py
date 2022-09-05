@@ -13,14 +13,13 @@ Find the split in node
 from dataclasses import dataclass
 
 @dataclass
-class TreeNode:
+class Node:
     val: int
-    left: 'TreeNode | None' = None
-    right: 'TreeNode | None' = None
+    left: 'Node | None' = None
+    right: 'Node | None' = None
 
 
-def lca(
-    root: TreeNode | None, p: TreeNode | None, q: TreeNode | None) -> TreeNode | None:
+def lca(root: Node | None, p: Node | None, q: Node | None) -> Node | None:
     if not p or not q:
         return None
     curr = root
@@ -34,15 +33,17 @@ def lca(
 
 
 if __name__ == "__main__":
-    n3 = TreeNode(3)
-    n5 = TreeNode(5)
-    n0 = TreeNode(0)
-    n4 = TreeNode(4, n3, n5)
-    n2 = TreeNode(2, n0, n4)
-    n7 = TreeNode(7)
-    n9 = TreeNode(9)
-    n8 = TreeNode(8, n7, n9)
-    n6 = TreeNode(6, n2, n8)
+    n3 = Node(3)
+    n5 = Node(5)
+    n0 = Node(0)
+    n4 = Node(4, n3, n5)
+    n2 = Node(2, n0, n4)
+    n7 = Node(7)
+    n9 = Node(9)
+    n8 = Node(8, n7, n9)
+    n6 = Node(6, n2, n8)
+
     ans = lca(n6, n2, n8)
     assert ans
-    print(f"LCA:{ans.val}")
+    assert ans.val == 6
+    print(f"LCA betwwen {n2.val} and {n8.val} is {ans.val}")
