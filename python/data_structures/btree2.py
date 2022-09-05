@@ -31,23 +31,23 @@ def from_list(nodes_list: list[str]) -> Node | None:
 
     return forest[0]
 
-def bfs(root: Node | None, cb: Callable[[str], None] | None = None) -> None:
+def bfs(root: Node | None, on_visit: Callable[[str], None] | None = None) -> None:
     if not root:
         return
     q = deque[Node]()
     q.append(root)
 
-    visit = lambda cb, v: cb(v) if cb else None
+    visit = lambda fun, v: fun(v) if fun else None
 
     while q:
         node = q.popleft()
-        visit(cb, node.value)
+        visit(on_visit, node.value)
         if node.left:
             q.append(node.left)
         if node.right:
             q.append(node.right)
 
-def level_order(root: Node | None, cb: Callable[[int, str],None]) -> None:
+def level_order(root: Node | None, on_visit: Callable[[int, str],None]) -> None:
     if not root:
         return
     q = deque[Node|None]()
@@ -59,32 +59,32 @@ def level_order(root: Node | None, cb: Callable[[int, str],None]) -> None:
             node = q.popleft()
             if node is None:
                 continue
-            cb(level, node.value)
+            on_visit(level, node.value)
             q.append(node.left)
             q.append(node.right)
         level += 1
 
 
-def in_order(root: Node | None, cb: Callable[[str], None]) -> None:
+def in_order(root: Node | None, on_visit: Callable[[str], None]) -> None:
     if not root:
         return
-    pre_order(root.left, cb)
-    cb(root.value)
-    in_order(root.right, cb)
+    pre_order(root.left, on_visit)
+    on_visit(root.value)
+    in_order(root.right, on_visit)
 
-def pre_order(root: Node | None, cb: Callable[[str], None]) -> None:
+def pre_order(root: Node | None, on_visit: Callable[[str], None]) -> None:
     if not root:
         return
-    cb(root.value)
-    pre_order(root.left, cb)
-    pre_order(root.right, cb)
+    on_visit(root.value)
+    pre_order(root.left, on_visit)
+    pre_order(root.right, on_visit)
 
-def post_order(root: Node | None, cb: Callable[[str], None]) -> None:
+def post_order(root: Node | None, on_visit: Callable[[str], None]) -> None:
     if not root:
         return
-    post_order(root.left, cb)
-    post_order(root.right, cb)
-    cb(root.value)
+    post_order(root.left, on_visit)
+    post_order(root.right, on_visit)
+    on_visit(root.value)
 
 def post_order_generator(root: Node | None) -> Generator:
     if not root:
