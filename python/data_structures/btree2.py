@@ -86,6 +86,16 @@ def post_order(root: Node | None, on_visit: Callable[[str], None]) -> None:
     post_order(root.right, on_visit)
     on_visit(root.value)
 
+def k_smallest(root: Node | None, k: int) -> Node:
+    if not root:
+        return Node("")
+    values = []
+    on_visit = lambda v: values.append(v)
+
+    in_order(root, on_visit)
+
+    return values[k-1] if values else root
+
 def post_order_generator(root: Node | None) -> Generator:
     if not root:
         return
@@ -131,6 +141,9 @@ if __name__ == "__main__":
     print("DFS post order")
     post_order(btree, strategy)
 
-    print("DFS post order (Generator)")
-    for node in post_order_generator(btree):
-        print(f"node:{node}")
+    # print("DFS post order (Generator)")
+    # for node in post_order_generator(btree):
+    #     print(f"node:{node}")
+
+    ans = k_smallest(btree, 2)
+    print(f"Kth smallest: {ans}")
