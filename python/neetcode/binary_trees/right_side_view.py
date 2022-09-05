@@ -32,9 +32,10 @@ def right_side_view(root: Node | None) -> list[int]:
 
     while q:
         n = len(q)
-        for i, _ in enumerate(range(n)):
+        last_index = n - 1
+        for i in range(n):
             node = q.popleft()
-            if i + 1 == n:
+            if i == last_index:
                 right_values.append(node.val)
             if node.left:
                 q.append(node.left)
