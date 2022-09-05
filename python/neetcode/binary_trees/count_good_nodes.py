@@ -8,27 +8,26 @@ Return the number of good nodes in the binary tree.
 """
 
 from dataclasses import dataclass
-from typing import Optional
 
 
 @dataclass
-class TreeNode:
+class Node:
     val: int
-    left: Optional["TreeNode"] = None
-    right: Optional["TreeNode"] = None
+    left: 'Node | None' = None
+    right: 'Node | None' = None
 
 
 @dataclass
-class NodeData:
+class Context:
     n_nodes: int
 
 
-def good_nodes(root: Optional[TreeNode]) -> int:
+def good_nodes(root: Node) -> int:
     if not root:
         return 0
-    data = NodeData(0)
+    ctx = Context(0)
 
-    def dfs(root: Optional[TreeNode], target: int, node_data: NodeData):
+    def dfs(root: Node | None, target: int, node_data: Context) -> None:
         if not root:
             return
         if root.val >= target:
@@ -37,23 +36,23 @@ def good_nodes(root: Optional[TreeNode]) -> int:
         dfs(root.left, new_max, node_data)
         dfs(root.right, new_max, node_data)
 
-    dfs(root, root.val, data)
-    return data.n_nodes
+    dfs(root, root.val, ctx)
+    return ctx.n_nodes
 
 
 if __name__ == "__main__":
-    n1b = TreeNode(1)
-    n5 = TreeNode(5)
-    n4 = TreeNode(4, n1b, n5)
-    n3b = TreeNode(3)
-    n1a = TreeNode(1, n3b)
-    n3a = TreeNode(3, n1a, n4)
+    n1b = Node(1)
+    n5 = Node(5)
+    n4 = Node(4, n1b, n5)
+    n3b = Node(3)
+    n1a = Node(1, n3b)
+    n3a = Node(3, n1a, n4)
     assert good_nodes(n3a) == 4
 
-    n2 = TreeNode(2)
-    n4 = TreeNode(4)
-    n3b = TreeNode(3, n4, n2)
-    n3a = TreeNode(3, n3b)
+    n2 = Node(2)
+    n4 = Node(4)
+    n3b = Node(3, n4, n2)
+    n3a = Node(3, n3b)
     assert good_nodes(n3a) == 3
 
-    assert good_nodes(TreeNode(1)) == 1
+    assert good_nodes(Node(1)) == 1
