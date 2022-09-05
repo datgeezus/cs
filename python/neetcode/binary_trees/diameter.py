@@ -6,13 +6,7 @@ The length of a path between two nodes is represented by the number of edges bet
 """
 
 from dataclasses import dataclass
-from typing import Callable
-
-
-@dataclass
-class StrategyData:
-    diameter: int
-
+from collections.abc import Callable
 
 @dataclass
 class Node:
@@ -20,28 +14,31 @@ class Node:
     left: 'Node | None' = None
     right: 'Node | None' = None
 
+@dataclass
+class Context:
+    diameter: int
 
 def get_diameter(root: Node | None) -> int:
-    def strategy(left: int, right: int, data: StrategyData):
-        data.diameter = max(left + right, data.diameter)
+    def strategy(left: int, right: int, ctx: Context):
+        ctx.diameter = max(left + right, ctx.diameter)
 
-    def dfs(
-        root: Node | None,
-        strategy: Callable[[int, int, StrategyData], None],
-        data: StrategyData,
-    ) -> int:
-        if not root:
-            return 0
+    ctx = Context(0)
+    dfs(root, strategy, ctx)
+    return ctx.diameter
 
-        left = dfs(root.left, strategy, data)
-        right = dfs(root.right, strategy, data)
+def dfs(
+    root: Node | None,
+    strategy: Callable[[int, int, Context], None],
+    ctx: Context,
+) -> int:
+    if not root:
+        return 0
 
-        strategy(left, right, data)
-        return 1 + max(left, right)
+    left = dfs(root.left, strategy, ctx)
+    right = dfs(root.right, strategy, ctx)
 
-    data = StrategyData(0)
-    dfs(root, strategy, data)
-    return data.diameter
+    strategy(left, right, ctx)
+    return 1 + max(left, right)
 
 
 if __name__ == "__main__":
