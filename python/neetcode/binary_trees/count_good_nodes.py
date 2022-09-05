@@ -27,14 +27,14 @@ def good_nodes(root: Node) -> int:
         return 0
     ctx = Context(0)
 
-    def dfs(root: Node | None, target: int, node_data: Context) -> None:
+    def dfs(root: Node | None, target: int, ctx: Context) -> None:
         if not root:
             return
         if root.val >= target:
-            node_data.n_nodes += 1
+            ctx.n_nodes += 1
         new_max = max(target, root.val)
-        dfs(root.left, new_max, node_data)
-        dfs(root.right, new_max, node_data)
+        dfs(root.left, new_max, ctx)
+        dfs(root.right, new_max, ctx)
 
     dfs(root, root.val, ctx)
     return ctx.n_nodes
