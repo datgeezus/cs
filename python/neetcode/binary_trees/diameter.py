@@ -19,25 +19,25 @@ class Context:
     diameter: int
 
 def get_diameter(root: Node | None) -> int:
-    def strategy(left: int, right: int, ctx: Context):
-        ctx.diameter = max(left + right, ctx.diameter)
-
     ctx = Context(0)
-    dfs(root, strategy, ctx)
+    dfs(root, visit, ctx)
     return ctx.diameter
+
+def visit(left: int, right: int, ctx: Context):
+    ctx.diameter = max(left + right, ctx.diameter)
 
 def dfs(
     root: Node | None,
-    strategy: Callable[[int, int, Context], None],
+    cb: Callable[[int, int, Context], None],
     ctx: Context,
 ) -> int:
     if not root:
         return 0
 
-    left = dfs(root.left, strategy, ctx)
-    right = dfs(root.right, strategy, ctx)
+    left = dfs(root.left, cb, ctx)
+    right = dfs(root.right, cb, ctx)
 
-    strategy(left, right, ctx)
+    cb(left, right, ctx)
     return 1 + max(left, right)
 
 
