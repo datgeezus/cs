@@ -27,8 +27,8 @@ from collections import deque
 def dfs(
         graph: dict[str, list[str]], 
         v: str, 
-        cb: Callable[[str], None], 
-        visited: set[str]
+        on_visit: Callable[[str], None], 
+        visited: set[str] | None = None
     ) -> None:
 
     visited = set() if visited is None else visited
@@ -37,18 +37,17 @@ def dfs(
     visited.add(v)
 
     for edge in graph[v]:
-        dfs(graph, edge, cb, visited)
+        dfs(graph, edge, on_visit, visited)
 
-    if cb is not None:
-        cb(v)
+    on_visit(v)
 
     return
 
 def dfs_it(
         graph: dict[str, list[str]], 
         v: str, 
-        cb: Callable[[str], None], 
-        visited: set[str]
+        on_visit: Callable[[str], None], 
+        visited: set[str] | None = None
     ) -> None:
     visited = set() if visited is None else visited
     if v in visited:
@@ -66,15 +65,14 @@ def dfs_it(
                 stack.append(neighbor)
                 visited.add(neighbor)
 
-        if cb is not None:
-            cb(vertex)
+        on_visit(vertex)
     return
 
 def bfs(
         graph: dict[str, list[str]], 
         v: str, 
-        cb: Callable[[str], None], 
-        visited: set[str]
+        on_visit: Callable[[str], None], 
+        visited: set[str] | None = None
     ) -> None:
     visited = set() if visited is None else visited
     if v in visited:
@@ -92,8 +90,7 @@ def bfs(
                 q.append(neighbor)
                 visited.add(neighbor)
 
-        if cb is not None:
-            cb(vertex)
+        on_visit(vertex)
     return
 
 
@@ -109,11 +106,11 @@ if __name__ == "__main__":
         "h": [],
     }
 
-    cb = lambda v: print(f"vertex:{v}")
+    on_visit = lambda v: print(f"vertex:{v}")
 
     print("Recursive DFS")
-    dfs(graph, "a", cb, set())
+    dfs(graph, "a", on_visit)
     print("Iterative DFS")
-    dfs_it(graph, "a", cb, set())
+    dfs_it(graph, "a", on_visit)
     print("BFS")
-    bfs(graph, "a", cb, set())
+    bfs(graph, "a", on_visit)
