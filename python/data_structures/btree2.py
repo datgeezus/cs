@@ -31,17 +31,15 @@ def from_list(nodes_list: list[str]) -> Node | None:
 
     return forest[0]
 
-def bfs(root: Node | None, on_visit: Callable[[str], None] | None = None) -> None:
+def bfs(root: Node | None, on_visit: Callable[[str], None]) -> None:
     if not root:
         return
     q = deque[Node]()
     q.append(root)
 
-    visit = lambda fun, v: fun(v) if fun else None
-
     while q:
         node = q.popleft()
-        visit(on_visit, node.value)
+        on_visit(node.value)
         if node.left:
             q.append(node.left)
         if node.right:
