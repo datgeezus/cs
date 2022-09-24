@@ -66,7 +66,7 @@ def level_order(root: Node | None, on_visit: Callable[[int, str],None]) -> None:
 def in_order(root: Node | None, on_visit: Callable[[str], None]) -> None:
     if not root:
         return
-    pre_order(root.left, on_visit)
+    in_order(root.left, on_visit)
     on_visit(root.value)
     in_order(root.right, on_visit)
 
