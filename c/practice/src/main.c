@@ -24,8 +24,8 @@ int main()
     printf("\npset_caake_thief ...\n");
     // pset_cake_thief();
     printf("\npnumber_of_islands ...\n");
-    // number_of_islands();
-    shortest_path_in_maze();
+     number_of_islands();
+    //shortest_path_in_maze();
     getchar();
     return 0;
 }
