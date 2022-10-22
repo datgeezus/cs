@@ -2,12 +2,15 @@
 #include <string.h>
 #include <malloc.h>
 #include "deque/deque.h"
+#include "lib/result.h"
 
 enum OptionalType
 {
     PRESENT,
     EMPTY
 };
+
+#define OPTIONAL_IS_PRESENT(opt) ((opt.type) == PRESENT)
 
 struct optional
 {
@@ -48,15 +51,15 @@ int main() {
     while(!Deque_IsEmpty(deque))
     {
         DequeResult curr = Deque_PopLeft(deque);
-        if (OK == curr.type)
+        if (RESULT_IS_OK(curr))
         {
             Node *node = (Node *)curr.value;
             printf("Node: %d\n", node->value);
-            if (PRESENT == node->left.type)
+            if (OPTIONAL_IS_PRESENT(node->left))
             {
                 Deque_Append(deque, node->left.data);
             }
-            if (PRESENT == node->right.type)
+            if (OPTIONAL_IS_PRESENT(node->right))
             {
                 Deque_Append(deque, node->right.data);
             }

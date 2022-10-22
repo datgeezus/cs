@@ -10,7 +10,7 @@
         {
             "label": "Build Current",
             "type": "shell",
-            "command": "gcc -g collections/**/*.c trees/**/*.c ${file} -Icollections -Itrees -o main.out",
+            "command": "gcc -g collections/**/*.c trees/**/*.c lib/*.c ${file} -Icollections -Itrees -Ilib -o main.out",
             "group": "build"
         },
         {

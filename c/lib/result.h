@@ -11,8 +11,10 @@ typedef struct result Result;
 
 struct result
 {
-    ResultType type;
+    enum ResultType type;
     void* data;
 };
+
+#define RESULT_IS_OK(result) ((result.type) == OK)
 
 #endif
