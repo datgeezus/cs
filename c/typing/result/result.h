@@ -3,8 +3,8 @@
 
 enum ResultType
 {
-    OK,
-    ERR
+    RESULT_OK,
+    RESULT_ERR
 };
 
 typedef struct result Result;
@@ -12,9 +12,9 @@ typedef struct result Result;
 struct result
 {
     enum ResultType type;
-    void* data;
+    void* value;
 };
 
-#define RESULT_IS_OK(result) ((result.type) == OK)
+#define RESULT_IS_OK(result) ((result.type) == RESULT_OK)
 
 #endif

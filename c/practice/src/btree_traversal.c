@@ -2,28 +2,15 @@
 #include <string.h>
 #include <malloc.h>
 #include "deque/deque.h"
-#include "lib/result.h"
-
-enum OptionalType
-{
-    PRESENT,
-    EMPTY
-};
-
-#define OPTIONAL_IS_PRESENT(opt) ((opt.type) == PRESENT)
-
-struct optional
-{
-    void *data;
-    enum OptionalType type;
-};
+#include "result/result.h"
+#include "optional/optional.h"
 
 
 struct node
 {
     int value;
-    struct optional left;
-    struct optional right
+    Optional left;
+    Optional right;
 };
 
 typedef struct node Node;
@@ -50,18 +37,18 @@ int main() {
     printf("Deque is empty: %d\n", Deque_IsEmpty(deque));
     while(!Deque_IsEmpty(deque))
     {
-        DequeResult curr = Deque_PopLeft(deque);
+        Result curr = Deque_PopLeft(deque);
         if (RESULT_IS_OK(curr))
         {
             Node *node = (Node *)curr.value;
             printf("Node: %d\n", node->value);
-            if (OPTIONAL_IS_PRESENT(node->left))
+            if (Optional_IsPresent(node->left))
             {
-                Deque_Append(deque, node->left.data);
+                Deque_Append(deque, Optional_Get(node->left));
             }
-            if (OPTIONAL_IS_PRESENT(node->right))
+            if (Optional_IsPresent(node->right))
             {
-                Deque_Append(deque, node->right.data);
+                Deque_Append(deque, Optional_Get(node->right));
             }
         }
         else
@@ -72,13 +59,13 @@ int main() {
 
 
 
-    if(n2.left.type == PRESENT)
+    if(Optional_IsPresent(n2.left))
     {
-        Node *left = (Node *)n2.left.data;
+        Node *left = (Node *)Optional_Get(n2.left);
         printf("n2 value:%d\n", left->value);
     }
 
-    if(n4.right.type == EMPTY)
+    if(!Optional_IsPresent(n4.right))
     {
         printf("n4 has no right nodes\n");
     }
@@ -89,29 +76,27 @@ int main() {
 static void node__init(Node *This, int value)
 {
     This->value = value;
-    This->left.type = EMPTY;
-    This->right.type = EMPTY;
+    This->left = Optional_Empty();
+    This->right = Optional_Empty();
 }
 
 static Node node__new(int value)
 {
     Node n;
     n.value = value;
-    n.left.type = EMPTY;
-    n.right.type = EMPTY;
+    n.left = Optional_Empty();
+    n.right = Optional_Empty();
     return n;
 }
 
 static void node__add_left(Node *This, Node *That)
 {
-    This->left.type = PRESENT;
-    This->left.data = That;
+    This->left = Optional_Of(That);
 }
 
 static void node__add_right(Node *This, Node *That)
 {
-    This->right.type = PRESENT;
-    This->right.data = That;
+    This->right = Optional_Of(That);
 }
 
 

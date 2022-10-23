@@ -2,6 +2,7 @@
 #include <malloc.h>
 #include <stdlib.h>
 #include "deque.h"
+#include "optional/optional.h"
 
 
 
@@ -52,34 +53,34 @@ void Deque_Append(Deque* deque, void *value)
     deque->size += 1;
 }
 
-DequeResult Deque_PopLeft(Deque *deque)
+Result Deque_PopLeft(Deque *deque)
 {
-    DequeResult result;
+    Result result;
     if(Deque_IsEmpty(deque))
     {
-        result.type = ERR;
+        result.type = RESULT_ERR;
     }
     else
     {
         result.value = deque->tail->value;
-        result.type = OK;
+        result.type = RESULT_OK;
         deque__delete_tail(deque);
     }
 
     return result;
 }
 
-DequeResult Deque_Pop(Deque *deque)
+Result Deque_Pop(Deque *deque)
 {
-    DequeResult result;
+    Result result;
     if(Deque_IsEmpty(deque))
     {
-        result.type = ERR;
+        result.type = RESULT_ERR;
     }
     else
     {
         result.value = deque->head->value;
-        result.type = OK;
+        result.type = RESULT_OK;
         deque__delete_head(deque);
     }
 
@@ -129,4 +130,63 @@ static void deque__decrement_size(Deque *deque)
     {
         deque->size -= 1;
     }
+}
+
+
+/**
+ * Deque Optional
+*/
+
+
+struct nodeopt
+{
+    void *value;
+    Optional prev;
+    Optional next;
+};
+
+struct dequeopt
+{
+    Optional head;
+    Optional tail;
+    int isEmpty;
+    size_t size;
+};
+
+typedef struct nodeopt NodeOpt;
+typedef struct dequeopt DequeOpt;
+static NodeOpt* nodeopt__new(void *value);
+static void dequeopt__delete_tail(DequeOpt *deque);
+static void dequeopt__delete_head(DequeOpt *deque);
+static void dequeopt__decrement_size(DequeOpt *deque);
+
+DequeOpt *DequeOpt_New()
+{
+    DequeOpt *deque = calloc(1, sizeof(DequeOpt));
+    deque->size = 0;
+    deque->isEmpty = 1;
+    return deque;
+}
+
+void DequeOpt_Append(DequeOpt* deque, void *value)
+{
+    deque->head = Optional_Map(deque->head, node__new, value);
+    deque->size += 1;
+}
+
+Result DequeOpt_PopLeft(DequeOpt *deque)
+{
+    Result result;
+    if(Deque_IsEmpty(deque))
+    {
+        result.type = RESULT_ERR;
+    }
+    else
+    {
+        result.value = Optional_Get(deque->tail);
+        result.type = RESULT_OK;
+        deque__delete_tail(deque);
+    }
+
+    return result;
 }

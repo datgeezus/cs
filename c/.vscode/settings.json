@@ -1,6 +1,6 @@
 {
-    "files.associations": {
-        "stack.h": "c",
-        "result.h": "c"
-    }
+  "files.associations": {
+    "result.h": "c",
+    "deque.h": "c"
+  }
 }
