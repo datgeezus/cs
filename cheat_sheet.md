@@ -1,6 +1,35 @@
 # Arrays
+## Two pointers
+```python
+def fun(arr: list[int]):
+    left = 0
+    right = len(arr) - 1
+
+    while left < right:
+        # Logic depending on problem
+        # Logic to update left and/or right
+        left += 1
+        right += 1
+```
 ## Sliding window
+```python
+def fun(arr: list[int]):
+    left l 0
+    for right in arr:
+        # logic to add element at arr[right]
+        while left < right and constraint:
+            # logic to remove element at arr[left]
+            left += 1
+
+        # logic to update answer
+```
+
 ## Prefix sums
+```python
+prefix = [nums[0]]
+for i in nums[1:]:
+    prefix.append(nums[i] + prefix[end])
+```
 
 # Hashing
 ## Counting
