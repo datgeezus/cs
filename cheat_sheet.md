@@ -22,3 +22,37 @@ def subarray_sum(nums: list[int], k: int) -> int:
     return ans
 ```
 
+# Stacks and queues
+## Stacks
+## Queues
+## Monotonic
+
+```python
+stack = []
+for num in nums:
+    while stack and stack[-1] >= num:
+        stack.pop()
+    # logic depending on the problem
+    stack.push(num)
+```
+
+### Daily Temperatures
+Given an array of integers `temperatures` that represents the daily temperatures,
+return an array `ans` such that `ans[i]` is the number of days you have to wait after
+the ith day to get a warmer temperature.
+If there is no future day that is warmer, `ans[0] = 0`
+
+```python
+def daily_temps(temperatures: list[int]) -> list[int]:
+    stack = []
+    ans = [0 for _ in temperatures]
+
+    for i in range(len(temperatures)):
+        top = stack[-1]
+        while stack and temperatures[top] < temperatures[i]:
+            j = stack.pop()
+            ans[j] = i - j
+        stack.append(i)
+
+    return ans
+```
