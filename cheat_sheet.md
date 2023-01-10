@@ -24,6 +24,22 @@ def fun(arr: list[int]):
         # logic to update answer
 ```
 
+## Intervals
+```python
+def merge(intervals: list[list[int]]) -> list[list[int]]:
+
+    intervals.sort(key=lambda x: x[0])
+
+    merged = []
+    for interval in intervals:
+        if not merged or not overlaps(merged[-1], interval):
+            merged.append(interval)
+        else:   # merge
+            merged[-1][1] = max(merged[-1][1], interval[1])
+
+    return merged
+```
+
 ## Prefix sums
 ```python
 prefix = [nums[0]]
