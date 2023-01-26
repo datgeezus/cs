@@ -31,24 +31,29 @@ Constraints:
 Follow up: Could you optimize your algorithm to use only O(rowIndex) extra space?
 """
 
+def memo(fn):
+    cache = {}
+    def wrapper(*args):
+        if args in cache:
+            return cache[args]
+        cache[args] = fn(*args)
+        return cache[args]
+    return wrapper
+
 def get_row(row_index: int) -> list[int]:
 
-    def get_num(r: int, c: int, mem: dict[tuple[int,int], int]) -> int:
+    @memo
+    def get_num(r: int, c: int) -> int:
         if r == 0 or c == 0 or r == c:
             return 1
-
-        if (r,c) in mem:
-            return mem[(r,c)]
-
-        mem[(r,c)] = get_num(r - 1, c - 1, mem) + get_num(r - 1, c, mem)
-        return mem[(r,c)]
+        return  get_num(r - 1, c - 1) + get_num(r - 1, c)
 
     ans = []
-    mem = {}
     for i in range(row_index + 1):
-        ans.append(get_num(row_index, i, mem))
+        ans.append(get_num(row_index, i))
 
     return ans
+
 
 
 if __name__ == "__main__":
