@@ -27,6 +27,7 @@ Constraints:
 
 """
 
+from __future__ import annotations
 from dataclasses import dataclass
 
 @dataclass
@@ -48,6 +49,6 @@ def swap_pairs(head: None | ListNode) -> None | ListNode:
 
 
 if __name__ == "__main__":
-    head = ListNode(1)
+    head = ListNode(1, ListNode(2, ListNode(3, ListNode(4))))
     print(head)
     print(swap_pairs(head))
