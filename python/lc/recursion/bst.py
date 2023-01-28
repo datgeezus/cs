@@ -41,6 +41,17 @@ def bst_search(root: Node | None, val: int) -> Node | None:
     return bst_search(root.left, val) if val < root.val \
         else bst_search(root.right, val)
 
+def bst_insert(root: Node | None, val: int) -> Node | None:
+    if not root:
+        return Node(val)
+
+    if val > root.val:
+        root.right = bst_insert(root.right, val)
+    else:
+        root.left = bst_insert(root.left, val)
+
+    return root
+
 def bst_to_list(root: Node | None) -> list[int]:
     def dfs(root: Node | None, l: list[int]) -> None:
         if not root:
@@ -53,6 +64,7 @@ def bst_to_list(root: Node | None) -> list[int]:
     ans = []
     dfs(root, ans)
     return ans
+
 
 
 if __name__ == "__main__":
