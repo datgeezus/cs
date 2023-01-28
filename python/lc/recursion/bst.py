@@ -25,14 +25,13 @@ Constraints:
     1 <= val <= 107
 
 """
-from __future__ import annotations
 from dataclasses import dataclass
 
 @dataclass
 class Node:
     val: int
-    left: 'Node' | None = None
-    right: 'Node' | None = None
+    left: 'Node | None' = None
+    right: 'Node | None' = None
 
 def bst_search(root: Node | None, val: int) -> Node | None:
     if not root or root.val == val:

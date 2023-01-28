@@ -27,13 +27,12 @@ Constraints:
 
 """
 
-from __future__ import annotations
 from dataclasses import dataclass
 
 @dataclass
 class ListNode:
     val: int
-    next: 'ListNode' | None = None
+    next: 'ListNode | None' = None
 
 def swap_pairs(head: None | ListNode) -> None | ListNode:
     if not head or not head.next:
