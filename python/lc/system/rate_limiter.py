@@ -56,20 +56,24 @@ class RateLimiter:
         # Queue to store allowed requests with the following constraints:
         # size can't exceed N
         # diff between max and min timestamps can't exceed T
-        self.allowed_requests = deque()
+        self.requests = deque()
 
     def should_allow(self, timestamp: int) -> bool:
-        if not self.allowed_requests:
-            self.allowed_requests.appendleft(timestamp)
+        # empty queue
+        if not self.requests:
+            self.requests.appendleft(timestamp)
             return True
 
-        while self.allowed_requests and timestamp - self.allowed_requests[-1] >= self.T:
-            self.allowed_requests.pop()
+        # removed requests older than T
+        while self.requests and timestamp - self.requests[-1] >= self.T:
+            self.requests.pop()
 
-        if len(self.allowed_requests) >= self.N:
+        # at most N requests are allowed
+        if len(self.requests) >= self.N:
             return False
 
-        self.allowed_requests.appendleft(timestamp)
+        # store valid request timestamp
+        self.requests.appendleft(timestamp)
         return True
 
 if __name__ == "__main__":
