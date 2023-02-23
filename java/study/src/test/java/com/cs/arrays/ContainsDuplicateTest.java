@@ -10,6 +10,7 @@ public class ContainsDuplicateTest {
     public void testContains() {
         int[] input = new int[]{1,2,3,1};
         boolean ans = ContainsDuplicate.containsDuplicate(input);
+//        boolean ans = ContainsDuplicate.duplicate(input);
         assertTrue(ans);
     }
 }
