@@ -14,19 +14,13 @@ public class GroupAnagram {
         for (var word : anagrams) {
             var hash = hashChars(word);
             System.out.println("mask: " + hash);
-            ans.merge(
-                    hash,
-                    List.of(word),
-                    (prevVal, newVal) ->
-                            Stream.of(prevVal, newVal)
-                                    .flatMap(Collection::stream)
-                                    .collect(Collectors.toList()));
+            ans.merge(hash, List.of(word), GroupAnagram::mergeLists);
         }
 
         return ans.values();
     }
 
-    static int hashChars(String word) {
+    private static int hashChars(String word) {
         int mask = 0;
         for (char c : word.toCharArray()) {
             var index = indexOf(c);
@@ -35,7 +29,11 @@ public class GroupAnagram {
         return mask;
     }
 
-    static int indexOf(char c) {
+    private static int indexOf(char c) {
         return ((int) c) - ((int) 'a');
+    }
+
+    private static List<String> mergeLists(List<String> a, List<String> b) {
+        return Stream.of(a, b).flatMap(Collection::stream).collect(Collectors.toList());
     }
 }
