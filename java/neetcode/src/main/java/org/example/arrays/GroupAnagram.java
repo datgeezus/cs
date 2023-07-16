@@ -12,18 +12,27 @@ public class GroupAnagram {
         var ans = new HashMap<Integer, List<String>>();
 
         for (var word : anagrams) {
-            int mask = 0x00;
-
-            for (char c : word.toCharArray()) {
-                var value = indexOf(c);
-
-                mask |= (1 << value);
-            }
-            System.out.println("mask: " + mask);
-            ans.merge(mask, List.of(word), (prevVal, newVal) -> Stream.of(prevVal, newVal).flatMap(Collection::stream).collect(Collectors.toList()));
+            var hash = hashChars(word);
+            System.out.println("mask: " + hash);
+            ans.merge(
+                    hash,
+                    List.of(word),
+                    (prevVal, newVal) ->
+                            Stream.of(prevVal, newVal)
+                                    .flatMap(Collection::stream)
+                                    .collect(Collectors.toList()));
         }
 
         return ans.values();
+    }
+
+    static int hashChars(String word) {
+        int mask = 0;
+        for (char c : word.toCharArray()) {
+            var index = indexOf(c);
+            mask |= (1 << index);
+        }
+        return mask;
     }
 
     static int indexOf(char c) {
