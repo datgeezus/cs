@@ -1,7 +1,6 @@
 package org.example.arrays;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Arrays;
 
 /*
 Given an integer array nums, return an array answer such that answer[i] is equal to the
@@ -62,27 +61,24 @@ ans[3]: prefix[2] = 6 * postfix[4] = 1   => 6
 ans = [24, 12, 8, 6]
  */
 public class ProductOfArray {
-    public static List<Integer> productOfArray(List<Integer> nums) {
-        var ans = nums.stream().map(ignore -> 1).collect(Collectors.toList());
-
+    public static Integer[] productOfArray(Integer[] nums) {
+        var size = nums.length;
+        // Build the answer array, filled with 1s
+        Integer[] ans = Arrays.stream(new Integer[size]).map(ignore -> 1).toArray(Integer[]::new);
 
         var prev = 1;
-        var numsIt = nums.listIterator();
-        while(numsIt.hasNext()) {
-            var index = numsIt.nextIndex();
-            var number = numsIt.next();
-            ans.set(index, prev);
-            prev *= number;
+        for (int index = 0; index < size; ++index) {
+            var curr = nums[index];
+            ans[index] = prev;
+            prev *= curr;
         }
 
         prev = 1;
-        var reversedNumsIt = nums.listIterator(nums.size());
-        while (reversedNumsIt.hasPrevious()) {
-            var index = reversedNumsIt.previousIndex();
-            var number = reversedNumsIt.previous();
-            var newVal = ans.get(Math.abs(index)) * prev;
-            ans.set(index, newVal);
-            prev *= number;
+        for (int index = size-1; index >= 0; --index) {
+            var curr = nums[index];
+            var newValue = ans[index] * prev;
+            ans[index] = newValue;
+            prev *= curr;
         }
 
         return ans;
