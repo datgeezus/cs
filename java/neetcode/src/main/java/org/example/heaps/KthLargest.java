@@ -49,11 +49,7 @@ public class KthLargest {
         this.k = k;
 
         for (int n: nums) {
-            queue.add(n);
-        }
-
-        while (queue.size() > k) {
-            queue.remove();
+            this.add(n);
         }
     }
 
