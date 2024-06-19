@@ -33,8 +33,8 @@ class MinStack:
     def get_min(self) -> int:
         return self.mins[-1]
 
-
-if __name__ == "__main__":
+def test1():
+    print("Test 1")
     min_stack = MinStack()
     min_stack.push(-2)
     min_stack.push(0)
@@ -43,3 +43,19 @@ if __name__ == "__main__":
     min_stack.pop()
     assert min_stack.top() == 0
     assert min_stack.get_min() == -2
+
+def test2():
+    print("Test 2")
+    min_stack = MinStack()
+    min_stack.push(1)
+    min_stack.push(2)
+    min_stack.push(0)
+    assert min_stack.get_min() == 0
+    min_stack.pop()
+    assert min_stack.top() == 2
+    assert min_stack.get_min() == 1
+
+
+if __name__ == "__main__":
+    test1()
+    test2()

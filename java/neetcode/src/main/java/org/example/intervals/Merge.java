@@ -1,14 +1,16 @@
 package org.example.intervals;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Merge {
     public static List<List<Integer>> merge(List<List<Integer>> intervals) {
         List<List<Integer>> ans = new ArrayList<>();
         intervals.sort(Comparator.comparingInt(a -> a.get(0)));
         ans.add(intervals.get(0));
+
+        var count = new HashMap<String, Integer>();
+
+
 
         for (List<Integer> interval: intervals) {
             int lastIntervalIndex = ans.size() - 1;

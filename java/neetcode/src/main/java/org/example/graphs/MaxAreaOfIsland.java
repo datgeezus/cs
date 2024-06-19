@@ -62,7 +62,7 @@ public class MaxAreaOfIsland {
         queue.addLast(first);
         visit.accept(first, context);
 
-        while (queue.size() > 0) {
+        while (!queue.isEmpty()) {
             var curr = queue.removeFirst();
             for (var move: MOVES) {
                 var newCell = Map.entry(curr.getKey() + move[0], curr.getValue() + move[1]);
