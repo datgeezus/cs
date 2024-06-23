@@ -2,7 +2,6 @@ package org.example.heaps;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Map;
 import java.util.PriorityQueue;
 
 /**
@@ -34,15 +33,13 @@ import java.util.PriorityQueue;
 public class KClosestPoints {
 
     public static int[][] kClosest(int[][] points, int k) {
-        var maxHeap =
-                new PriorityQueue<Map.Entry<Double, int[]>>(
-                        Collections.reverseOrder(Comparator.comparingDouble(Map.Entry::getKey)));
+        var maxHeap = new PriorityQueue<>(Collections.reverseOrder(Comparator.comparingDouble(Tuple::distance)));
 
         int[] origin = {0, 0};
 
         for (var point : points) {
             var d = distance(origin, point);
-            maxHeap.add(Map.entry(d, point));
+            maxHeap.add(new Tuple(d, point));
             if (maxHeap.size() > k) {
                 maxHeap.remove();
             }
@@ -53,7 +50,7 @@ public class KClosestPoints {
 
         for (int i = 0; i < len; ++i) {
             var val = maxHeap.remove();
-            ans[i] = val.getValue();
+            ans[i] = val.point();
         }
 
         return ans;
@@ -65,4 +62,6 @@ public class KClosestPoints {
 
         return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
     }
+
+    private record Tuple(Double distance, int[] point) {}
 }
