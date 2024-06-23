@@ -54,12 +54,10 @@ public class TaskScheduler {
     public static int leastInterval(char[] tasks, int n) {
         var count = counter(tasks);
         var maxHeap = new PriorityQueue<Integer>(Collections.reverseOrder());
-        var deque = new ArrayDeque<Map.Entry<Integer, Integer>>(); // [ count, idle time ]
+        var deque = new ArrayDeque<Item>(); // [ count, idle time ]
         var time = 0;
 
-        for (var entry: count.values()) {
-            maxHeap.add(entry);
-        }
+        maxHeap.addAll(count.values());
 
         while (!maxHeap.isEmpty() || !deque.isEmpty()) {
             time += 1;
@@ -67,13 +65,12 @@ public class TaskScheduler {
             if (!maxHeap.isEmpty()) {
                 var c = maxHeap.remove() - 1;
                 if (c > 0) {
-                    deque.add(Map.entry(c, time + n));
+                    deque.add(new Item(c, time + n));
                 }
             }
 
-
-            if (!deque.isEmpty() && deque.peekFirst().getValue() == time) {
-                var now = deque.removeFirst().getKey();
+            if (!deque.isEmpty() && deque.peekFirst().idleTime() == time) {
+                var now = deque.removeFirst().count();
                 maxHeap.add(now);
             }
         }
@@ -83,10 +80,12 @@ public class TaskScheduler {
 
     private static Map<Character, Integer> counter(char[] tasks) {
         var c = new HashMap<Character, Integer>();
-        for (var task: tasks) {
+        for (var task : tasks) {
             c.merge(task, 1, Integer::sum);
         }
 
         return c;
     }
+
+    private record Item(Integer count, Integer idleTime) {}
 }
