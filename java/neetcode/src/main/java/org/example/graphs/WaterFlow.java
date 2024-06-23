@@ -1,6 +1,8 @@
 package org.example.graphs;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
@@ -28,10 +30,10 @@ public class WaterFlow {
     private static void dfs(
             int r,
             int c,
-            BiConsumer<Map.Entry<Integer, Integer>, Context> visit,
-            BiFunction<Map.Entry<Integer, Integer>, Context, Boolean> isValid,
+            BiConsumer<Cell, Context> visit,
+            BiFunction<Cell, Context, Boolean> isValid,
             Context context) {
-        var cell = Map.entry(r, c);
+        var cell = new Cell(r, c);
         if (!isValid.apply(cell, context)) {
             return;
         }
@@ -45,29 +47,27 @@ public class WaterFlow {
         }
     }
 
-    private static Boolean isValid(Map.Entry<Integer, Integer> cell, Context context) {
-        var r = cell.getKey();
-        var c = cell.getValue();
-        return !context.ocean.contains(cell)
-                && inBounds(r, c, context)
-                && context.height <= context.heights[r][c];
+    private static Boolean isValid(Cell cell, Context context) {
+        var r = cell.r;
+        var c = cell.c;
+        return !context.ocean.contains(cell) && inBounds(r, c, context) && context.height <= context.heights[r][c];
     }
 
     private static Boolean inBounds(int r, int c, Context context) {
         return r >= 0 && r < context.nRows && c >= 0 && c < context.nCols;
     }
 
-    private static void visit(Map.Entry<Integer, Integer> cell, Context context) {
-        var r = cell.getKey();
-        var c = cell.getValue();
+    private static void visit(Cell cell, Context context) {
+        var r = cell.r;
+        var c = cell.c;
         context.ocean.add(cell);
         context.height = context.heights[r][c];
     }
 
     public static List<List<Integer>> pacificAtlantic(int[][] heights) {
         Context context = new Context(heights);
-        Set<Map.Entry<Integer, Integer>> pacific = new HashSet<>();
-        Set<Map.Entry<Integer, Integer>> atlantic = new HashSet<>();
+        Set<Cell> pacific = new HashSet<>();
+        Set<Cell> atlantic = new HashSet<>();
         var nRows = context.nRows;
         var nCols = context.nCols;
 
@@ -97,15 +97,17 @@ public class WaterFlow {
 
         return pacific.stream()
                 .filter(atlantic::contains)
-                .map(entry -> List.of(entry.getKey(), entry.getValue()))
+                .map(entry -> List.of(entry.r, entry.c))
                 .collect(Collectors.toList());
     }
+
+    private record Cell(int r, int c) {}
 
     private static final class Context {
         public final int nRows;
         public final int nCols;
         public final int[][] heights;
-        public Set<Map.Entry<Integer, Integer>> ocean;
+        public Set<Cell> ocean;
         public int height = 0;
 
         public Context(int[][] heights) {
